@@ -2,7 +2,7 @@
   "name": "@deskpro-apps/asana",
   "title": "Asana",
   "description": "My Deskpro app",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
@@ -36,7 +36,7 @@
     "whitelist": [
       {
         "url": "https://app.asana.com/-/.*",
-        "methods": ["GET","POST"],
+        "methods": ["GET", "POST"],
         "timeout": 20
       },
       {
