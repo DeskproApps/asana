@@ -1,0 +1,32 @@
+{
+  "data": {
+    "gid": "1234567890",
+    "email": "taras.shevchenko@me.ua",
+    "name": "taras.shevchenko",
+    "photo": {
+      "image_21x21": "https://img_21x21.png",
+      "image_27x27": "https://img_27x27.png",
+      "image_36x36": "https://img_36x36.png",
+      "image_60x60": "https://img_60x60.png",
+      "image_128x128": "https://img_128x128.png"
+    },
+    "resource_type": "user",
+    "workspaces": [
+      {
+        "gid": "workspace_id_001",
+        "name": "ecommerce-rocks.com",
+        "resource_type": "workspace"
+      },
+      {
+        "gid": "workspace_id_002",
+        "name": "Personal Projects",
+        "resource_type": "workspace"
+      },
+      {
+        "gid": "workspace_id_003",
+        "name": "Customer success",
+        "resource_type": "workspace"
+      }
+    ]
+  }
+}
