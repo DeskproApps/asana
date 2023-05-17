@@ -1,26 +1,47 @@
 {
-  "name": "@deskpro-apps/my-app",
-  "title": "My App",
+  "name": "@deskpro-apps/asana",
+  "title": "Asana",
   "description": "My Deskpro app",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
   "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
+  "entityAssociations": {
+    "linkedAsanaTask": {
+      "title": "Linked Asana Task",
+      "entity": "ticket",
+      "type": "external_id"
+    }
+  },
   "settings": {
-    "example": {
-      "title": "Example Setting",
-      "description": "Example backend only setting",
+    "access_tokens": {
+      "title": "Personal access tokens",
+      "description": "Asana personal access tokens, please follow the app setup guide to get this",
       "type": "string",
+      "isRequired": true,
+      "isBackendOnly": true,
+      "order": 10
+    },
+    "verify_settings": {
+      "title": "",
+      "type": "app_embedded",
+      "options": { "entrypoint": "#/admin/verify_settings" },
       "isRequired": false,
-      "isBackendOnly": true
+      "isBackendOnly": true,
+      "order": 20
     }
   },
   "proxy": {
     "whitelist": [
       {
-        "url": "https://jsonplaceholder.typicode.com/.*",
-        "methods": ["GET"],
+        "url": "https://app.asana.com/-/.*",
+        "methods": ["GET","POST"],
+        "timeout": 20
+      },
+      {
+        "url": "https://app.asana.com/api/1.0/.*",
+        "methods": ["GET", "POST", "PUT"],
         "timeout": 20
       }
     ]
