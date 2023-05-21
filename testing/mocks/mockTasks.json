@@ -1,0 +1,70 @@
+{
+  "data": [
+    {
+      "gid": "1204600348650514",
+      "name": "Research",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600346922846",
+      "name": "Link Asana tasks to ticket DP",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650453",
+      "name": "List of linked tasks to a ticket",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650457",
+      "name": "Details of Asana task",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650455",
+      "name": "Unlink Asana tasks from ticket",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650471",
+      "name": "Create Asana tasks from DP",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650475",
+      "name": "Edit Asana task from DP",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650477",
+      "name": "View comments on Asana tasks",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650483",
+      "name": "Add comments to task from DP",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650492",
+      "name": "Option for automatic comment with URL to DP ticket should be added when the task is linked",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    },
+    {
+      "gid": "1204600348650494",
+      "name": "Option to add ticket replies/notes to linked issue as a comment",
+      "resource_type": "task",
+      "resource_subtype": "default_task"
+    }
+  ]
+}

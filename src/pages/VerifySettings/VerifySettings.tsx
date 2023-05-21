@@ -8,7 +8,7 @@ import { getCurrentUserService } from "../../services/asana";
 import { Button } from "../../components/common";
 import type { FC } from "react";
 import type { Settings } from "../../types";
-import type { Me } from "../../services/asana/types";
+import type { Member } from "../../services/asana/types";
 
 const Invalid = styled(TSpan)`
   color: ${({ theme }) => theme.colors.red100};
@@ -21,7 +21,7 @@ const Valid = styled.span`
 const VerifySettings: FC = () => {
   const { client } = useDeskproAppClient();
 
-  const [currentUser, setCurrentUser] = useState<Me|null>(null);
+  const [currentUser, setCurrentUser] = useState<Member|null>(null);
   const [settings, setSettings] = useState<Settings>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");

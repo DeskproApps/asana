@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "gid": "151053514402325",
+      "name": "ff.ua наведення порядку",
+      "resource_type": "project"
+    },
+    {
+      "gid": "942397744634880",
+      "name": "ff.ua new admin",
+      "resource_type": "project"
+    },
+    {
+      "gid": "151053514402328",
+      "name": "florist.ff.ua",
+      "resource_type": "project"
+    },
+    {
+      "gid": "888072785828962",
+      "name": "GreenFlora",
+      "resource_type": "project"
+    },
+    {
+      "gid": "151053514402329",
+      "name": "aimee",
+      "resource_type": "project"
+    },
+    {
+      "gid": "1201873752158240",
+      "name": "Customer implementation",
+      "resource_type": "project"
+    },
+    {
+      "gid": "1204600346922820",
+      "name": "Project: Deskpro Asana App",
+      "resource_type": "project"
+    }
+  ]
+}
+

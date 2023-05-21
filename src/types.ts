@@ -13,10 +13,10 @@ export type Dict<T> = Record<string, T>;
 export type Option<Value = unknown> = Omit<DropdownValueType<Value>, "subItems">;
 
 /** An ISO-8601 encoded UTC date time string. Example value: `""2019-09-07T15:50:00Z"` */
-export type DateTime = string;
+export type DateAt = string;
 
 /** The date, in the format "yyyy-mm-dd" */
-export type DateType = string;
+export type DateOn = string;
 
 /** Request types */
 export type ApiRequestMethod = "GET" | "POST";
@@ -42,7 +42,13 @@ export type Settings = {
   access_tokens?: string,
 };
 
-export type TicketData = object;
+export type TicketData = {
+  ticket: {
+    id: string,
+    subject: string,
+    permalinkUrl: string,
+  },
+};
 
 export type TicketContext = Context<TicketData, Maybe<Settings>>;
 
@@ -51,6 +57,6 @@ export type NavigateToChangePage = { type: "changePage", path: To };
 export type EventPayload =
   | NavigateToChangePage
   | { type: "logout" }
-  ;
+;
 
 /** Entities */
