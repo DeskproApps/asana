@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import get from "lodash/get";
+import size from "lodash/size";
 import { Stack } from "@deskpro/deskpro-ui";
 import { Title,  } from "@deskpro/app-sdk";
 import { getTaskDueDate, getProjectName } from "../../utils";
@@ -23,6 +24,8 @@ type Props = {
 
 const TaskItem: FC<Props> = ({ task, onClickTitle }) => {
   const taskName = useMemo(() => get(task, ["name"], "-"), [task]);
+  const tags = useMemo(() => (get(task, ["tags"], []) || []), [task]);
+
   const onClick = useCallback((e: MouseEvent) => {
     e.preventDefault();
     onClickTitle && onClickTitle();
@@ -65,7 +68,7 @@ const TaskItem: FC<Props> = ({ task, onClickTitle }) => {
         label="Tags"
         text={(
           <Stack gap={6}>
-            {(get(task, ["tags"], []) || []).map((tag) => (
+            {!size(tags) ? "-" : tags.map((tag) => (
               <Tag key={tag.gid} {...tag} />
             ))}
           </Stack>
