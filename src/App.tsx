@@ -9,6 +9,8 @@ import {
 } from "@deskpro/app-sdk";
 import { isNavigatePayload } from "./utils";
 import {
+  HomePage,
+  LinkPage,
   VerifySettings,
   LoadingAppPage,
 } from "./pages";
@@ -52,6 +54,8 @@ const App: FC = () => {
     <>
       <Routes>
         <Route path="/admin/verify_settings" element={<VerifySettings/>} />
+        <Route path="/link" element={<LinkPage/>} />
+        <Route path="/home" element={<HomePage/>} />
         <Route index element={<LoadingAppPage/>} />
       </Routes>
       <br/><br/><br/>

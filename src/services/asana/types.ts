@@ -1,3 +1,5 @@
+import type { DateAt, DateOn } from "../../types";
+
 export type AsanaAPIError = {
   error: {
     code: number,
@@ -14,10 +16,54 @@ export type Photo = {
   image_1024x1024: string,
 };
 
-export type Me = {
+export type Tag = {
+  gid: string,
+  name: string,
+  color:
+    | "dark-red"
+    | "dark-orange"
+    | "light-orange"
+    | "dark-brown"
+    | "light-green"
+    | "dark-green"
+    | "light-teal"
+    | "dark-teal"
+    | "light-blue"
+    | "dark-purple"
+    | "light-purple"
+    | "light-pink"
+    | "dark-pink"
+    | "light-red"
+    | "light-warm-gray"
+  ,
+};
+
+export type Member = {
   gid: string,
   email: string,
   name: string,
   photo: Photo,
-  workspaces: Array<{ gid: string, resource_type: "workspace" }>
+};
+
+export type Workspace = {
+  gid: string,
+  name: string,
+};
+
+export type Project = {
+  gid: string,
+  name: string,
+  permalink_url: string,
+};
+
+export type Task = {
+  gid: string,
+  name: string,
+  completed: boolean,
+  due_at: DateAt,
+  due_on: DateOn,
+  permalink_url: string,
+  assignee: Member,
+  projects: Project[],
+  tags: Tag[],
 };
