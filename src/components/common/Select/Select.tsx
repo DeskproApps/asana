@@ -72,7 +72,7 @@ const Select = <T,>({
           ? value.includes(o.value)
           : o.value === value,
       }));
-  }, [options, value, input]) as Array<DropdownItemType<T>>;
+  }, [options, value, input, noFoundText]) as Array<DropdownItemType<T>>;
 
   return (
     <Dropdown

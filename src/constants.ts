@@ -35,4 +35,4 @@ export const TASK_FIELDS = [
   ...TAG_FIElDS.map((field) => `tags.${field}`),
   ...MEMBER_FIELDS.map((field) => `assignee.${field}`),
   ...PROJECT_FIELDS.map((field) => `projects.${field}`),
-]
+];

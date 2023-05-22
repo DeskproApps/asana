@@ -17,12 +17,12 @@ describe("Search", () => {
 
   test("set init value", async () => {
     const { container } = render(
-      <Search value="find issue" onChange={() => {}} onClear={jest.fn()}/>,
+      <Search value="find entity" onChange={() => {}} onClear={jest.fn()}/>,
       { wrappers: { theme: true } }
     );
 
     const input = container.querySelector("input#search");
-    expect(input).toHaveValue("find issue");
+    expect(input).toHaveValue("find entity");
   });
 
   test("should called onChange", async () => {
@@ -34,7 +34,7 @@ describe("Search", () => {
 
     const input = container.querySelector("input#search");
     expect(input).toBeInTheDocument();
-    await userEvent.type(input as Element, "search issue");
+    await userEvent.type(input as Element, "search entity");
     expect(onChange).toHaveBeenCalled();
   });
 

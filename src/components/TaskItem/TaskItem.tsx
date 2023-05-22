@@ -18,7 +18,7 @@ import type { Task } from "../../services/asana/types";
 
 type Props = {
   task: Task,
-  onClickTitle: () => void,
+  onClickTitle?: () => void,
 };
 
 const TaskItem: FC<Props> = ({ task, onClickTitle }) => {
