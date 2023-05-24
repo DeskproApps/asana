@@ -1,14 +1,12 @@
-import size from "lodash/size";
-import { Stack } from "@deskpro/deskpro-ui";
 import { HorizontalDivider } from "@deskpro/app-sdk";
 import { getOption } from "../../utils";
 import {
   Search,
-  Button,
   Container,
 } from "../common";
 import { Workspaces } from "./Workspace";
 import { Project } from "./Project";
+import { Buttons } from "./Buttons";
 import { Tasks } from "./Tasks";
 import type { FC, Dispatch } from "react";
 import type { Maybe } from "../../types";
@@ -70,20 +68,12 @@ const LinkTasks: FC<Props> = ({
           options={projects.map(({ gid, name }) => getOption(gid, name))}
           onChange={(o) => onChangeProject(o.value)}
         />
-        <Stack justify="space-between" style={{ paddingBottom: "4px" }}>
-          <Button
-            type="button"
-            text="Link Issue"
-            disabled={!size(selectedTasks) || isSubmitting}
-            loading={isSubmitting}
-            onClick={onLinkTasks}
-          />
-          <Button
-            text="Cancel"
-            intent="secondary"
-            onClick={onCancel}
-          />
-        </Stack>
+        <Buttons
+          onCancel={onCancel}
+          onLinkTasks={onLinkTasks}
+          isSubmitting={isSubmitting}
+          selectedTasks={selectedTasks}
+        />
       </Container>
       <HorizontalDivider />
       <Container>
