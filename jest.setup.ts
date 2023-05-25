@@ -54,4 +54,5 @@ jest.mock("@deskpro/app-sdk", () => ({
   },
   useDeskproAppTheme: () => ({ theme: lightTheme }),
   proxyFetch: async () => fetch,
+  LoadingSpinner: () => React.createElement("span", {}, "LoadingSpinner..."),
 }));

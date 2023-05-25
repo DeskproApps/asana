@@ -12,7 +12,7 @@ const mockClient = {
   entityAssociationSet: async () => {},
   entityAssociationDelete: async () => {},
   entityAssociationGet: async () => null,
-  entityAssociationList: async () => [""],
+  entityAssociationList: async () => [],
   entityAssociationCountEntities: async () => 0,
 
   setState: async () => ({ isSuccess: false, errors: [] }),

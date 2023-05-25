@@ -14,6 +14,8 @@ enum QueryKey {
   PROJECTS = "projects",
   WORKSPACES = "workspaces",
   TASKS = "tasks",
+  TASK = "task",
+  LINKED_TASKS = "linkedTasks",
 }
 
 export { queryClient, QueryKey };
