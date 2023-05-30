@@ -23,6 +23,7 @@ const useCheckIsAuth: UseCheckIsAuth = () => {
     if (!ticketId) {
       return;
     }
+
     getCurrentUserService(client)
       .then(() => getEntityListService(client, ticketId))
       .then((entityIds) => navigate(size(entityIds) ? "/home" : "/link"))

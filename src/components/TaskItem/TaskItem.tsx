@@ -19,22 +19,22 @@ import type { Task } from "../../services/asana/types";
 
 type Props = {
   task: Task,
-  onClickTitle?: () => void,
+  onNavigateToTask?: (taskId: Task["gid"]) => void,
 };
 
-const TaskItem: FC<Props> = ({ task, onClickTitle }) => {
+const TaskItem: FC<Props> = ({ task, onNavigateToTask }) => {
   const taskName = useMemo(() => get(task, ["name"], "-"), [task]);
   const tags = useMemo(() => (get(task, ["tags"], []) || []), [task]);
 
   const onClick = useCallback((e: MouseEvent) => {
     e.preventDefault();
-    onClickTitle && onClickTitle();
-  }, [onClickTitle]);
+    onNavigateToTask && onNavigateToTask(task.gid);
+  }, [onNavigateToTask, task]);
 
   return (
     <>
       <Title
-        title={!onClickTitle
+        title={!onNavigateToTask
           ? taskName
           : (<Link href="#" onClick={onClick}>{taskName}</Link>)
         }

@@ -7,9 +7,10 @@ import type { Task } from "../../services/asana/types";
 
 type Props = {
   tasks: Task[],
+  onNavigateToTask: (taskId: Task["gid"]) => void,
 };
 
-const Home: FC<Props> = ({ tasks }) => {
+const Home: FC<Props> = ({ tasks, onNavigateToTask }) => {
   return (
     <Container>
       {!Array.isArray(tasks)
@@ -18,7 +19,11 @@ const Home: FC<Props> = ({ tasks }) => {
         ? <NoFound text="No Asana tasks found"/>
         : tasks.map((task) => (
           <>
-            <TaskItem key={task.gid} task={task} />
+            <TaskItem
+              key={task.gid}
+              task={task}
+              onNavigateToTask={onNavigateToTask}
+            />
             <HorizontalDivider style={{ marginTop: 10, marginBottom: 10 }}/>
           </>
         ))

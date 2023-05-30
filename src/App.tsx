@@ -11,6 +11,7 @@ import { isNavigatePayload } from "./utils";
 import {
   HomePage,
   LinkPage,
+  ViewTaskPage,
   VerifySettings,
   LoadingAppPage,
 } from "./pages";
@@ -56,6 +57,7 @@ const App: FC = () => {
         <Route path="/admin/verify_settings" element={<VerifySettings/>} />
         <Route path="/link" element={<LinkPage/>} />
         <Route path="/home" element={<HomePage/>} />
+        <Route path="/view/:taskId" element={<ViewTaskPage/>} />
         <Route index element={<LoadingAppPage/>} />
       </Routes>
       <br/><br/><br/>
