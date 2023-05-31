@@ -4,7 +4,7 @@ import {
   LoadingSpinner,
   useDeskproElements,
 } from "@deskpro/app-sdk";
-import { useSetTitle } from "../../hooks";
+import { useSetTitle, useSetBadgeCount } from "../../hooks";
 import { useTasks } from "./hooks";
 import { Home } from "../../components";
 import type { FC } from "react";
@@ -19,6 +19,7 @@ const HomePage: FC = () => {
   }, [navigate]);
 
   useSetTitle("Asana");
+  useSetBadgeCount(tasks);
 
   useDeskproElements(({ registerElement, clearElements }) => {
     clearElements();
