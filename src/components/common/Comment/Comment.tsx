@@ -25,7 +25,9 @@ const Body = styled(TSpan)`
     margin-top: 0;
   }
 
-  p:first-child {
+  p:first-child,
+  ol:first-child,
+  ul:first-child {
     margin-top: 0;
   }
 

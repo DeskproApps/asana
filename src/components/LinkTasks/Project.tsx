@@ -15,7 +15,7 @@ const Project: FC<Props> = ({
   options,
 }) => {
   return (
-    <Label label="Project">
+    <Label label="Project" required>
       <Select
         id="project"
         value={value}

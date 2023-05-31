@@ -22,7 +22,14 @@ const ViewTaskPage: FC = () => {
       type: "home_button",
       payload: { type: "changePage", path: "/home" },
     });
-  });
+    registerElement("menu", {
+      type: "menu",
+      items: [{
+        title: "Unlink task",
+        payload: { type: "unlink", taskId },
+      }],
+    });
+  }, [taskId]);
 
   if (isLoading) {
     return (

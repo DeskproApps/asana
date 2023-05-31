@@ -13,3 +13,4 @@ export { DeskproTickets } from "./DeskproTickets";
 export { Tag } from "./Tag";
 export { Link } from "./Link";
 export { Comment } from "./Comment";
+export { OverflowText } from "./OverflowText";

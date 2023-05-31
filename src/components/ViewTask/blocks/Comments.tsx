@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import get from "lodash/get";
 import size from "lodash/size";
 import { Title, HorizontalDivider } from "@deskpro/app-sdk";
@@ -15,15 +16,16 @@ const Comments: FC<Props> = ({ comments }) => {
       <Title title={`Comments (${size(comments)})`}/>
 
       {comments.map(({ created_at, created_by, html_text, gid }) => (
-        <Comment
-          key={gid}
-          name={created_by.name}
-          date={new Date(created_at)}
-          avatarUrl={get(created_by, ["photo", "image_60x60"])}
-          text={html_text}
-        />
+        <Fragment key={gid}>
+          <Comment
+            name={created_by.name}
+            date={new Date(created_at)}
+            avatarUrl={get(created_by, ["photo", "image_60x60"])}
+            text={html_text}
+          />
+          <HorizontalDivider style={{ marginBottom: 10 }} />
+        </Fragment>
       ))}
-      <HorizontalDivider />
     </Container>
   );
 };

@@ -37,11 +37,11 @@ const Tasks: FC<Props> = ({
                     size={12}
                     checked={selectedTasks.some(({ gid }) => task.gid === gid)}
                     onChange={() => onChangeSelectedTask(task)}
-                    containerStyle={{ marginTop: 2 }}
+                    containerStyle={{ marginTop: 4 }}
                   />
                 </CardMedia>
                 <CardBody>
-                  <TaskItem task={task} onClickTitle={() => onChangeSelectedTask(task)} />
+                  <TaskItem task={task} onNavigateToTask={() => onChangeSelectedTask(task)} />
                 </CardBody>
               </Card>
               <HorizontalDivider style={{ marginBottom: 10 }} />

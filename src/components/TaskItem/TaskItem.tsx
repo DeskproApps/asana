@@ -1,16 +1,16 @@
 import { useCallback, useMemo } from "react";
 import get from "lodash/get";
 import size from "lodash/size";
-import { Stack } from "@deskpro/deskpro-ui";
+import { P5, Stack } from "@deskpro/deskpro-ui";
 import { Title,  } from "@deskpro/app-sdk";
 import { getTaskDueDate, getProjectName } from "../../utils";
 import {
   Tag,
   Link,
-  Member,
   Status,
   Property,
   AsanaLogo,
+  OverflowText,
   TwoProperties,
   DeskproTickets,
 } from "../common";
@@ -49,11 +49,10 @@ const TaskItem: FC<Props> = ({ task, onNavigateToTask }) => {
       />
       <TwoProperties
         leftLabel="Assignee"
-        leftText={get(task, ["assignee"]) && (
-          <Member
-            name={get(task, ["assignee", "name"], "")}
-            avatarUrl={get(task, ["assignee", "photo", "image_60x60"], "")}
-          />
+        leftText={(
+          <P5>
+            <OverflowText>{get(task, ["assignee", "name"], "-")}</OverflowText>
+          </P5>
         )}
         rightLabel="Status"
         rightText={(

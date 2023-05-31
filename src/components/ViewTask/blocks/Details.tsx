@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import get from "lodash/get";
 import size from "lodash/size";
+import replace from "lodash/fp/replace";
+import flow from "lodash/fp/flow";
 import { P5, Stack } from "@deskpro/deskpro-ui";
 import { Title, HorizontalDivider } from "@deskpro/app-sdk";
 import { format } from "../../../utils/date";
@@ -22,6 +24,10 @@ type Props = {
 
 const Details: FC<Props> = ({ task }) => {
   const tags = useMemo(() => (get(task, ["tags"], []) || []), [task]);
+  const description = flow(
+    replace("<body>", ""),
+    replace("</body>", ""),
+  )(get(task, ["html_notes"]));
 
   return (
     <>
@@ -48,7 +54,7 @@ const Details: FC<Props> = ({ task }) => {
           label="Description"
           text={(
             <P5
-              dangerouslySetInnerHTML={{ __html: get(task, ["html_notes"]) || "-" }}
+              dangerouslySetInnerHTML={{ __html: description || "-" }}
             />
           )}
         />

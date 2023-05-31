@@ -15,7 +15,7 @@ const Workspaces: FC<Props> = ({
   options,
 }) => {
   return (
-    <Label label="Workspace">
+    <Label label="Workspace" required>
       <Select<Workspace["gid"]>
         id="workspace"
         value={value}

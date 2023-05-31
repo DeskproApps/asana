@@ -86,7 +86,16 @@ const LinkPage: FC = () => {
     });
   });
 
-  useEffect(() => setSelectedProjectId(null), [selectedWorkspaceId]);
+  // At the beginning, we choose the first workspace
+  useEffect(() => {
+    setSelectedWorkspaceId(get(workspaces, [0, "gid"], null));
+    setSelectedProjectId(null);
+  }, [workspaces]);
+
+  // At the beginning, we choose the first project
+  useEffect(() => {
+    setSelectedProjectId(get(projects, [0, "gid"], null));
+  }, [projects]);
 
   return (
     <LinkTasks

@@ -29,7 +29,9 @@ const useTask: UseTask = (taskId) => {
     { enabled: Boolean(taskId) },
   );
 
-  const comments = useQueryWithClient(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore // need to fix typing in the app-sdk
+  const comments = useQueryWithClient<{ data: Story[] }, undefined, Story[]>(
     [QueryKey.TASK_STORIES, taskId as Task["gid"]],
     (client) => getTaskStoriesService(client, taskId as Task["gid"]),
     {
@@ -44,7 +46,7 @@ const useTask: UseTask = (taskId) => {
     isLoading: [task, subTasks, comments].some(({ isFetching }) => isFetching),
     task: get(task, ["data", "data"]) || null,
     subTasks: get(subTasks, ["data", "data"], []) || [],
-    comments: get(comments, ["data"], []) || [] as Story[],
+    comments: (get(comments, ["data"], []) || []) as Story[],
   };
 };
 
