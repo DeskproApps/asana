@@ -20,6 +20,7 @@ const SubTasks: FC<Props> = ({ subTasks }) => {
             ? <NoFound text="No subtasks found"/>
             : subTasks.map(({ gid, name, completed }) => (
               <Checkbox
+                id={gid}
                 key={gid}
                 label={name}
                 containerStyle={{ alignSelf: "start", marginTop: 3, marginRight: 4 }}
