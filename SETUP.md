@@ -1,9 +1,9 @@
 Asana App Setup Instructions
 ===
 
-To install the Asana app you must first create a Personal access token. Head over to your Asana account to get started.
+To install the Asana app you must first create a __Personal access token__. Head over to your Asana account to get started.
 
-Once you've logged in, click "Settings" on your avatar at the top right of the screen and choose "My settings..."
+Once you've logged in, click on your avatar at the top right of the screen and choose "My settings..."
 
 [![](./docs/assets/setup/asana-setup-01.png)](/docs/assets/setup/asana-setup-01.png)
 
