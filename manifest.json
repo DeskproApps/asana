@@ -1,7 +1,7 @@
 {
   "name": "@deskpro-apps/asana",
   "title": "Asana",
-  "description": "My Deskpro app",
+  "description": "View your Asana tasks linked with Deskpro tickets to streamline communication with users.",
   "version": "0.0.3",
   "scope": "agent",
   "isSingleInstall": false,
@@ -16,8 +16,8 @@
   },
   "settings": {
     "access_tokens": {
-      "title": "Personal access tokens",
-      "description": "Asana personal access tokens, please follow the app setup guide to get this",
+      "title": "Personal access token",
+      "description": "Asana personal access token, please follow the app setup guide to get this",
       "type": "string",
       "isRequired": true,
       "isBackendOnly": true,
