@@ -10,6 +10,7 @@ import {
 } from "@deskpro/app-sdk";
 import { setEntityService } from "../../services/deskpro";
 import { useSetTitle, useAsyncError } from "../../hooks";
+import { searchTasks } from "../../utils";
 import { useTasks } from "./hooks";
 import { LinkTasks } from "../../components";
 import type { FC, ChangeEvent } from "react";
@@ -86,7 +87,16 @@ const LinkPage: FC = () => {
     });
   });
 
-  useEffect(() => setSelectedProjectId(null), [selectedWorkspaceId]);
+  // At the beginning, we choose the first workspace
+  useEffect(() => {
+    setSelectedWorkspaceId(get(workspaces, [0, "gid"], null));
+    setSelectedProjectId(null);
+  }, [workspaces]);
+
+  // At the beginning, we choose the first project
+  useEffect(() => {
+    setSelectedProjectId(get(projects, [0, "gid"], null));
+  }, [projects]);
 
   return (
     <LinkTasks
@@ -99,7 +109,7 @@ const LinkPage: FC = () => {
       projects={projects}
       selectedProjectId={selectedProjectId}
       onChangeProject={setSelectedProjectId}
-      tasks={tasks}
+      tasks={searchTasks(search, tasks)}
       onCancel={onCancel}
       selectedTasks={selectedTasks}
       onChangeSelectedTask={onChangeSelectedTask}

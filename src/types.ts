@@ -4,6 +4,7 @@ import type {
   IDeskproClient,
   DropdownValueType,
 } from "@deskpro/app-sdk";
+import type { Task } from "./services/asana/types";
 
 /** Common types */
 export type Maybe<T> = T | undefined | null;
@@ -56,7 +57,7 @@ export type NavigateToChangePage = { type: "changePage", path: To };
 
 export type EventPayload =
   | NavigateToChangePage
-  | { type: "logout" }
+  | { type: "unlink", taskId: Task["gid"] }
 ;
 
 /** Entities */

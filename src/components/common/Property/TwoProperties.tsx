@@ -30,7 +30,8 @@ const Side = styled.div<Pick<Props, "marginBottom"> & { withDivider?: boolean,  
       border-left: 1px solid ${({theme}) => theme.colors.grey20};
     `
     : css`
-      width: calc(50% - 6px);
+      width: calc(50% - 6px - 10px);
+      padding-right: 10px;
     `
   }
 `;

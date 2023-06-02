@@ -1,3 +1,4 @@
+import get from "lodash/get";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import { match } from "ts-pattern";
@@ -7,10 +8,12 @@ import {
   useDeskproAppClient,
   useDeskproAppEvents,
 } from "@deskpro/app-sdk";
+import { useUnlinkTask } from "./hooks";
 import { isNavigatePayload } from "./utils";
 import {
   HomePage,
   LinkPage,
+  ViewTaskPage,
   VerifySettings,
   LoadingAppPage,
 } from "./pages";
@@ -20,6 +23,9 @@ import type { EventPayload } from "./types";
 const App: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
+  const { unlinkTask, isLoading: isLoadingUnlink } = useUnlinkTask();
+
+  const isLoading = [isLoadingUnlink].some((isLoading) => isLoading);
 
   useDeskproElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });
@@ -32,6 +38,7 @@ const App: FC = () => {
           navigate(payload.path);
         }
       })
+      .with("unlink", () => unlinkTask(get(payload, ["taskId"])))
       .run();
   }, 500);
 
@@ -44,7 +51,7 @@ const App: FC = () => {
     onElementEvent: debounceElementEvent,
   }, [client]);
 
-  if (!client) {
+  if (!client || isLoading) {
     return (
       <LoadingSpinner/>
     );
@@ -56,6 +63,7 @@ const App: FC = () => {
         <Route path="/admin/verify_settings" element={<VerifySettings/>} />
         <Route path="/link" element={<LinkPage/>} />
         <Route path="/home" element={<HomePage/>} />
+        <Route path="/view/:taskId" element={<ViewTaskPage/>} />
         <Route index element={<LoadingAppPage/>} />
       </Routes>
       <br/><br/><br/>

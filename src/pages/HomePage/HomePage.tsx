@@ -1,13 +1,25 @@
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   LoadingSpinner,
   useDeskproElements,
 } from "@deskpro/app-sdk";
+import { useSetTitle, useSetBadgeCount } from "../../hooks";
 import { useTasks } from "./hooks";
 import { Home } from "../../components";
 import type { FC } from "react";
+import type { Task } from "../../services/asana/types";
 
 const HomePage: FC = () => {
+  const navigate = useNavigate();
   const { isLoading, tasks } = useTasks();
+
+  const onNavigateToTask = useCallback((taskId: Task["gid"]) => {
+    navigate(`/view/${taskId}`);
+  }, [navigate]);
+
+  useSetTitle("Asana");
+  useSetBadgeCount(tasks);
 
   useDeskproElements(({ registerElement, clearElements }) => {
     clearElements();
@@ -25,7 +37,10 @@ const HomePage: FC = () => {
   }
 
   return (
-    <Home tasks={tasks} />
+    <Home
+      tasks={tasks}
+      onNavigateToTask={onNavigateToTask}
+    />
   );
 };
 

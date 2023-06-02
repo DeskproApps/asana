@@ -1,14 +1,14 @@
 {
   "data": [
     {
-      "gid": "1201873752158240",
+      "gid": "project001",
       "name": "Customer implementation",
-      "permalink_url": "https://app.asana.com/0/1201873752158240/1201873752158240"
+      "permalink_url": "https://app.asana.com/0/project001/project001"
     },
     {
-      "gid": "1204600346922820",
+      "gid": "project002",
       "name": "Project: Deskpro Asana App",
-      "permalink_url": "https://app.asana.com/0/1204600346922820/1204600346922820"
+      "permalink_url": "https://app.asana.com/0/project002/project002"
     }
   ],
   "next_page": null

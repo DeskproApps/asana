@@ -62,8 +62,18 @@ export type Task = {
   completed: boolean,
   due_at: DateAt,
   due_on: DateOn,
+  html_notes: string,
+  created_at: DateAt,
   permalink_url: string,
   assignee: Member,
   projects: Project[],
   tags: Tag[],
+};
+
+export type Story = {
+  gid: string,
+  type: string,
+  html_text: string,
+  created_at: DateAt,
+  created_by: Member,
 };
