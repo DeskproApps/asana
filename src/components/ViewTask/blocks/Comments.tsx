@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import get from "lodash/get";
 import size from "lodash/size";
 import { Title, HorizontalDivider } from "@deskpro/app-sdk";
+import { addBlankTargetToLinks } from "../../../utils";
 import { Container, Comment } from "../../common";
 import type { FC } from "react";
 import type { Story } from "../../../services/asana/types";
@@ -21,7 +22,7 @@ const Comments: FC<Props> = ({ comments }) => {
             name={created_by.name}
             date={new Date(created_at)}
             avatarUrl={get(created_by, ["photo", "image_60x60"])}
-            text={html_text}
+            text={addBlankTargetToLinks(html_text)}
           />
           <HorizontalDivider style={{ marginBottom: 10 }} />
         </Fragment>

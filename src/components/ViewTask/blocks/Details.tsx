@@ -6,7 +6,7 @@ import flow from "lodash/fp/flow";
 import { P5, Stack } from "@deskpro/deskpro-ui";
 import { Title, HorizontalDivider } from "@deskpro/app-sdk";
 import { format } from "../../../utils/date";
-import { getProjectName, getTaskDueDate } from "../../../utils";
+import { getProjectName, getTaskDueDate, addBlankTargetToLinks } from "../../../utils";
 import {
   Tag,
   Status,
@@ -54,7 +54,7 @@ const Details: FC<Props> = ({ task }) => {
           label="Description"
           text={(
             <P5
-              dangerouslySetInnerHTML={{ __html: description || "-" }}
+              dangerouslySetInnerHTML={{ __html: addBlankTargetToLinks(description) || "-" }}
             />
           )}
         />
