@@ -57,6 +57,8 @@ const LinkPage: FC = () => {
     setSelectedTasks(newSelectedTasks);
   }, [selectedTasks]);
 
+  const onNavigateToCreateTask = useCallback(() => navigate("/create"), [navigate]);
+
   const onLinkTasks = useCallback(() => {
     if (!client || !size(selectedTasks)) {
       return;
@@ -116,6 +118,7 @@ const LinkPage: FC = () => {
       isSubmitting={isSubmitting}
       onLinkTasks={onLinkTasks}
       isLoading={isLoading}
+      onNavigateToCreateTask={onNavigateToCreateTask}
     />
   );
 };

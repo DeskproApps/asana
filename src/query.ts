@@ -18,6 +18,8 @@ enum QueryKey {
   LINKED_TASKS = "linkedTasks",
   SUB_TASKS = "subTasks",
   TASK_STORIES = "taskStories",
+  USERS = "users",
+  TAGS = "tags",
 }
 
 export { queryClient, QueryKey };

@@ -6,6 +6,8 @@ export const DATE_FORMAT = "dd MMM, yyyy";
 
 export const TIME_FORMAT = "H:mm";
 
+export const DATE_ON_FORMAT = "yyyy-MM-dd";
+
 /** Deskpro */
 export const APP_PREFIX = "asana";
 
@@ -14,6 +16,8 @@ export const ENTITY = "linkedAsanaTask";
 export const placeholders = {
   ACCESS_TOKEN: "__access_tokens__",
 };
+
+export const UNKNOWN_ERROR = "An error occurred";
 
 /** Asana */
 export const BASE_URL = "https://app.asana.com/api/1.0";

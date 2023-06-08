@@ -3,6 +3,7 @@ import { getOption } from "../../utils";
 import {
   Search,
   Container,
+  Navigation,
 } from "../common";
 import { Workspaces } from "./Workspace";
 import { Project } from "./Project";
@@ -30,6 +31,7 @@ type Props = {
   isSubmitting: boolean,
   onLinkTasks: () => void,
   isLoading: boolean,
+  onNavigateToCreateTask: () => void,
 };
 
 const LinkTasks: FC<Props> = ({
@@ -49,10 +51,12 @@ const LinkTasks: FC<Props> = ({
   selectedProjectId,
   selectedWorkspaceId,
   onChangeSelectedTask,
+  onNavigateToCreateTask,
 }) => {
   return (
     <>
       <Container>
+        <Navigation selected="one" onTwoNavigate={onNavigateToCreateTask}/>
         <Search
           value={search}
           onChange={onChangeSearch}

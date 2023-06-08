@@ -1,12 +1,15 @@
 import { useState, useMemo } from "react";
 import get from "lodash/get";
+import size from "lodash/size";
+import isString from "lodash/isString";
 import toLower from "lodash/toLower";
+import isEmpty from "lodash/isEmpty";
 import {
   faCheck,
   faCaretDown,
   faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { DivAsInput } from "@deskpro/deskpro-ui";
+import { Stack, DivAsInput } from "@deskpro/deskpro-ui";
 import { Dropdown } from "@deskpro/app-sdk";
 import type { ReactNode } from "react";
 import type {
@@ -17,7 +20,6 @@ import type {
 } from "@deskpro/deskpro-ui";
 import type { DropdownTargetProps, DropdownProps } from "@deskpro/app-sdk";
 import type { Option, Maybe } from "../../../types";
-import size from "lodash/size";
 
 type Props<T> = Pick<DropdownProps<T, HTMLElement>, "closeOnSelect"|"containerHeight"|"containerMaxHeight"|"placement"> & {
   id: string,
@@ -47,10 +49,19 @@ const Select = <T,>({
 
   const displayValue = useMemo(() => {
     if (Array.isArray(value)) {
-      return options
+      const filteredOptions = options
         .filter((o) => value.includes(o.value))
-        .map((o) => o.label)
-        .join(", ");
+        .map((o) => o.label);
+
+      if (!size(value)) {
+        return "";
+      }
+
+      if (isString(get(filteredOptions, [0]))) {
+        return filteredOptions.join(", ");
+      }
+
+      return filteredOptions;
     } else {
       const o = options.find((o) => o.value === value);
       return get(o, ["label"], value);
@@ -62,10 +73,15 @@ const Select = <T,>({
       return [{ type: "header", label: noFoundText || "No items(s) found" }];
     }
 
+
     return options
-      .filter((o) =>
-        toLower(get(o, ["label"], "") as string).includes(input.toLowerCase())
-      )
+      .filter((o) => {
+        const label = get(o, ["label"]);
+        const description = get(o, ["description"]);
+        const search = (!isString(label) && !isEmpty(description)) ? description : label;
+
+        return toLower(search as string).includes(input.toLowerCase())
+      })
       .map((o) => ({
         ...o,
         selected: Array.isArray(value)
@@ -105,7 +121,9 @@ const Select = <T,>({
           error={error}
           ref={targetRef}
           {...targetProps}
-          value={displayValue}
+          value={isString(displayValue) ? displayValue : (
+            <Stack gap={6} wrap="wrap" style={{ marginBottom: 6 }}>{displayValue}</Stack>
+          )}
           style={{ paddingRight: 0, cursor: "pointer" }}
         />
       )}

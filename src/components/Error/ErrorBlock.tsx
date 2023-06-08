@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Stack } from "@deskpro/app-sdk";
+import { UNKNOWN_ERROR } from "../../constants";
 import type { FC } from "react";
 import type { Maybe } from "../../types";
 
@@ -17,7 +18,7 @@ const StyledErrorBlock = styled(Stack)`
   background-color: ${({ theme }) => theme.colors.red100};
 `;
 
-const ErrorBlock: FC<Props> = ({ text = "An error occurred" }) => (
+const ErrorBlock: FC<Props> = ({ text = UNKNOWN_ERROR }) => (
   <StyledErrorBlock>
     {Array.isArray(text)
       ? text.map((msg, idx) => (<div key={idx}>{msg}</div>))
