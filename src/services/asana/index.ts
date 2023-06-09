@@ -6,3 +6,6 @@ export { getTasksService } from "./getTasksService";
 export { getTaskService } from "./getTaskService";
 export { getSubTasksService } from "./getSubTasksService";
 export { getTaskStoriesService } from "./getTaskStoriesService";
+export { createTaskService } from "./createTaskService";
+export { getUsersService } from "./getUsersService";
+export { getTagsService } from "./getTagsService";

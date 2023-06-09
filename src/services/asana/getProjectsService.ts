@@ -1,10 +1,10 @@
 import { baseRequest } from "./baseRequest";
 import { PROJECT_FIELDS } from "../../constants";
 import type { IDeskproClient } from "@deskpro/app-sdk";
-import type { Workspace } from "./types";
+import type { Workspace, Project } from "./types";
 
 const getProjectsService = (client: IDeskproClient, workspaceId: Workspace["gid"]) => {
-  return baseRequest(client, {
+  return baseRequest<Project[]>(client, {
     url: "/projects",
     queryParams: {
       limit: "100",

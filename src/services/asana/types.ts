@@ -62,6 +62,7 @@ export type Task = {
   completed: boolean,
   due_at: DateAt,
   due_on: DateOn,
+  notes: string,
   html_notes: string,
   created_at: DateAt,
   permalink_url: string,

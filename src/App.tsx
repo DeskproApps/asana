@@ -16,6 +16,7 @@ import {
   ViewTaskPage,
   VerifySettings,
   LoadingAppPage,
+  CreateTaskPage,
 } from "./pages";
 import type { FC } from "react";
 import type { EventPayload } from "./types";
@@ -63,6 +64,7 @@ const App: FC = () => {
         <Route path="/admin/verify_settings" element={<VerifySettings/>} />
         <Route path="/link" element={<LinkPage/>} />
         <Route path="/home" element={<HomePage/>} />
+        <Route path="/create" element={<CreateTaskPage/>} />
         <Route path="/view/:taskId" element={<ViewTaskPage/>} />
         <Route index element={<LoadingAppPage/>} />
       </Routes>
