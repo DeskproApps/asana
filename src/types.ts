@@ -20,7 +20,7 @@ export type DateAt = string;
 export type DateOn = string;
 
 /** Request types */
-export type ApiRequestMethod = "GET" | "POST";
+export type ApiRequestMethod = "GET" | "POST" | "PUT";
 
 export type RequestParams = {
   url?: string,

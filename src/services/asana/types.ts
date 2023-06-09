@@ -69,6 +69,7 @@ export type Task = {
   assignee: Member,
   projects: Project[],
   tags: Tag[],
+  workspace: Workspace,
 };
 
 export type Story = {

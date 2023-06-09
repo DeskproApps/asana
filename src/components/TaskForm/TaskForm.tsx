@@ -2,7 +2,7 @@ import has from "lodash/has";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@deskpro/deskpro-ui";
-import { Stack } from "@deskpro/app-sdk";
+import { Stack, LoadingSpinner } from "@deskpro/app-sdk";
 import { useFormDeps } from "./hooks";
 import {
   getInitValues,
@@ -15,7 +15,7 @@ import type { FC } from "react";
 import type { Workspace } from "../../services/asana/types";
 import type { Props, FormValidationSchema } from "./types";
 
-const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
+const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) => {
   const {
     watch,
     register,
@@ -23,15 +23,22 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormValidationSchema>({
-    defaultValues: getInitValues(),
+    defaultValues: getInitValues(task),
     resolver: zodResolver(validationSchema),
   });
   const {
+    isLoading,
     tagOptions,
     userOptions,
     projectOptions,
     workspaceOptions,
   } = useFormDeps(watch("workspace"));
+
+  if (isLoading) {
+    return (
+      <LoadingSpinner/>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -52,6 +59,7 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
       <Label htmlFor="project" label="Project" required>
         <Select
           id="project"
+          disabled={isEditMode}
           value={watch("project")}
           showInternalSearch
           options={projectOptions}
@@ -112,6 +120,7 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
         <DateInput
           id="dueDate"
           placeholder="DD/MM/YYYY"
+          value={watch("dueDate") as Date}
           error={has(errors, ["dueDate", "message"])}
           onChange={(date) => setValue("dueDate", date[0])}
         />
@@ -120,6 +129,7 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
       <Label htmlFor="tags" label="Tags">
         <Select
           id="tags"
+          disabled={isEditMode}
           value={watch("tags")}
           showInternalSearch
           options={tagOptions}

@@ -8,7 +8,7 @@ export type FormValidationSchema = z.infer<typeof validationSchema>;
 export type TaskValues = {
   name: Task["name"],
   workspace: Workspace["gid"]
-  projects: Array<Project["gid"]>,
+  projects?: Array<Project["gid"]>,
   completed: Task["completed"],
   notes?: Task["notes"],
   assignee?: Task["assignee"]["gid"],

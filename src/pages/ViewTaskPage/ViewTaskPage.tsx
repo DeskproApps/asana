@@ -22,6 +22,10 @@ const ViewTaskPage: FC = () => {
       type: "home_button",
       payload: { type: "changePage", path: "/home" },
     });
+    registerElement("edit", {
+      type: "edit_button",
+      payload: { type: "changePage", path: `/edit/${taskId}` }
+    });
     registerElement("menu", {
       type: "menu",
       items: [{
