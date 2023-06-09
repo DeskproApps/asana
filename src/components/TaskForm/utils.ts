@@ -12,7 +12,7 @@ import type { FormValidationSchema, TaskValues } from "./types";
 
 const validationSchema = z.object({
   workspace: z.string().nonempty(),
-  project: z.string().nonempty(),
+  project: z.string().optional(),
   name: z.string().nonempty(),
   description: z.string().optional(),
   status: z.string().nonempty(),
@@ -40,10 +40,11 @@ const getTaskValues = (values: FormValidationSchema, isEditMode?: boolean): Task
   const description = get(values, ["description"], "");
   const assignee = get(values, ["assignee"]);
   const dueDate = get(values, ["dueDate"]);
+  const project = get(values, ["project"]);
 
   return {
     workspace: values.workspace,
-    ...(isEditMode ? {} : { projects: [values.project] }),
+    ...((isEditMode || !project) ? {} : { projects: [project] }),
     name: values.name,
     completed: values.status === "completed",
     ...(!description ? {} : { notes: description }),

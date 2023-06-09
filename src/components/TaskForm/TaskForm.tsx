@@ -56,7 +56,7 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) =>
         />
       </Label>
 
-      <Label htmlFor="project" label="Project" required>
+      <Label htmlFor="project" label="Project">
         <Select
           id="project"
           disabled={isEditMode}
