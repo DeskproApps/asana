@@ -6,13 +6,14 @@ type Props = {
   task: Task;
   subTasks: Task[],
   comments: Story[],
+  onCompleteSubtask: (subtaskId: Task["gid"], completed: boolean) => Promise<void>,
 };
 
-const ViewTask: FC<Props> = ({ task, subTasks, comments }) => {
+const ViewTask: FC<Props> = ({ task, subTasks, comments, onCompleteSubtask }) => {
   return (
     <>
       <Details task={task} />
-      <SubTasks subTasks={subTasks} />
+      <SubTasks subTasks={subTasks} onCompleteSubtask={onCompleteSubtask} />
       <Comments comments={comments} />
     </>
   );
