@@ -1,4 +1,5 @@
 import { cleanup } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { SubTasks } from "../SubTasks";
 import { render, mockSubtasks } from "../../../../../testing";
 
@@ -11,7 +12,7 @@ describe("ViewTask", () => {
 
     test("render", async () => {
       const { findByText } = render((
-        <SubTasks subTasks={ mockSubtasks.data as never} />
+        <SubTasks subTasks={ mockSubtasks.data as never} onCompleteSubtask={jest.fn()} />
       ), { wrappers: { theme: true } });
 
       expect(await findByText(/\[Create\] is it need to create new tag/i)).toBeInTheDocument();
@@ -19,12 +20,16 @@ describe("ViewTask", () => {
     });
 
     test("should trigger update subtask status", async () => {
+      const onMockCompleteSubtask = jest.fn();
       const { container } = render((
-        <SubTasks subTasks={ mockSubtasks.data as never} />
+        <SubTasks subTasks={ mockSubtasks.data as never} onCompleteSubtask={onMockCompleteSubtask} />
       ), { wrappers: { theme: true } });
 
-      const input = container.querySelector("input[id=subtask001]");
-      expect(input).toHaveAttribute("disabled");
+      const checkbox = container.querySelector("input[id=subtask001]");
+
+      await userEvent.click(checkbox as Element);
+
+      expect(onMockCompleteSubtask).toHaveBeenCalled();
     });
   });
 });

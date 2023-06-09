@@ -19,6 +19,7 @@ import type {
 } from "../../services/asana/types";
 
 export type Result = {
+  isLoading: boolean,
   workspaceOptions: Array<Option<Workspace["gid"]>>,
   projectOptions: Array<Option<Project["gid"]>>,
   userOptions: Array<Option<MemberType["gid"]>>,
@@ -90,6 +91,7 @@ const useFormDeps = (workspaceId?: Workspace["gid"]): Result => {
   );
 
   return {
+    isLoading: [workspaces].every(({ isLoading }) => isLoading),
     workspaceOptions: (get(workspaces, ["data"], []) || []) as Array<Option<Workspace["gid"]>>,
     projectOptions: (get(projects, ["data"], []) || []) as Array<Option<Project["gid"]>>,
     userOptions: (get(users, ["data"], []) || []) as Array<Option<MemberType["gid"]>>,

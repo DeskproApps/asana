@@ -19,7 +19,7 @@ const StyledErrorBlock = styled(Stack)`
 `;
 
 const ErrorBlock: FC<Props> = ({ text = UNKNOWN_ERROR }) => (
-  <StyledErrorBlock>
+  <StyledErrorBlock vertical gap={6}>
     {Array.isArray(text)
       ? text.map((msg, idx) => (<div key={idx}>{msg}</div>))
       : text

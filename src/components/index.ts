@@ -4,3 +4,4 @@ export { TaskItem } from "./TaskItem";
 export { Home } from "./Home";
 export { ViewTask } from "./ViewTask";
 export { CreateTask } from "./CreateTask";
+export { EditTask } from "./EditTask";

@@ -55,6 +55,7 @@ const Details: FC<Props> = ({ task }) => {
           text={(
             <P5
               dangerouslySetInnerHTML={{ __html: addBlankTargetToLinks(description) || "-" }}
+              style={{ whiteSpace: "pre-wrap" }}
             />
           )}
         />

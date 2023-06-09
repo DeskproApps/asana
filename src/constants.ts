@@ -35,12 +35,14 @@ export const TASK_FIELDS = [
   "completed",
   "due_at",
   "due_on",
+  "notes",
   "html_notes",
   "permalink_url",
   "created_at",
   ...TAG_FIElDS.map((field) => `tags.${field}`),
   ...MEMBER_FIELDS.map((field) => `assignee.${field}`),
   ...PROJECT_FIELDS.map((field) => `projects.${field}`),
+  ...WORKSPACE_FIELDS.map((field) => `workspace.${field}`),
 ];
 
 export const TASK_STORY_FIELDS = [

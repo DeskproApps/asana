@@ -1,4 +1,4 @@
-import { cleanup } from "@testing-library/react";
+import { cleanup, waitFor } from "@testing-library/react";
 import { render } from "../../../../testing";
 import { TaskForm } from "../TaskForm";
 
@@ -8,38 +8,44 @@ describe("LinkTasks", () => {
     cleanup();
   });
 
-  test("render", () => {
-    const { queryByText } = render((
+  test("render", async () => {
+    const { findByText } = render((
       <TaskForm onSubmit={jest.fn()} />
     ), { wrappers: { theme: true, query: true } });
 
-    expect(queryByText("Workspace")).toBeInTheDocument();
-    expect(queryByText("Project")).toBeInTheDocument();
-    expect(queryByText("Task name")).toBeInTheDocument();
-    expect(queryByText("Description")).toBeInTheDocument();
-    expect(queryByText("Status")).toBeInTheDocument();
-    expect(queryByText("Assignee")).toBeInTheDocument();
-    expect(queryByText("Due date")).toBeInTheDocument();
-    expect(queryByText("Tags")).toBeInTheDocument();
+    waitFor(async () => {
+      expect(await findByText("Workspace")).toBeInTheDocument();
+      expect(await findByText("Project")).toBeInTheDocument();
+      expect(await findByText("Task name")).toBeInTheDocument();
+      expect(await findByText("Description")).toBeInTheDocument();
+      expect(await findByText("Status")).toBeInTheDocument();
+      expect(await findByText("Assignee")).toBeInTheDocument();
+      expect(await findByText("Due date")).toBeInTheDocument();
+      expect(await findByText("Tags")).toBeInTheDocument();
 
-    expect(queryByText("Create")).toBeInTheDocument();
-    expect(queryByText("Cancel")).not.toBeInTheDocument();
+      expect(await findByText("Create")).toBeVisible();
+      expect(await findByText("Cancel")).not.toBeVisible();
+    });
   });
 
-  test("render error", () => {
-    const { queryByText } = render((
+  test("render error", async () => {
+    const { findByText } = render((
       <TaskForm onSubmit={jest.fn()} error="some error" />
     ), { wrappers: { theme: true, query: true } });
 
-    expect(queryByText("some error")).toBeInTheDocument();
+    waitFor(async () => {
+      expect(await findByText("some error")).toBeInTheDocument();
+    });
   });
 
-  test("render errors", () => {
-    const { queryByText } = render((
+  test("render errors", async () => {
+    const { findByText } = render((
       <TaskForm onSubmit={jest.fn()} error={["one error", "two error"]} />
     ), { wrappers: { theme: true, query: true } });
 
-    expect(queryByText("one error")).toBeInTheDocument();
-    expect(queryByText("two error")).toBeInTheDocument();
+    waitFor(async () => {
+      expect(await findByText("one error")).toBeInTheDocument();
+      expect(await findByText("two error")).toBeInTheDocument();
+    });
   });
 });

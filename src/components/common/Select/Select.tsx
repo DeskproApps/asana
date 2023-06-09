@@ -21,7 +21,7 @@ import type {
 import type { DropdownTargetProps, DropdownProps } from "@deskpro/app-sdk";
 import type { Option, Maybe } from "../../../types";
 
-type Props<T> = Pick<DropdownProps<T, HTMLElement>, "closeOnSelect"|"containerHeight"|"containerMaxHeight"|"placement"> & {
+type Props<T> = Pick<DropdownProps<T, HTMLElement>, "closeOnSelect"|"containerHeight"|"containerMaxHeight"|"placement"|"disabled"> & {
   id: string,
   error?: DivAsInputWithDisplayProps["error"],
   value: Maybe<T | T[]>,
@@ -39,6 +39,7 @@ const Select = <T,>({
   value,
   options,
   onChange,
+  disabled,
   required,
   noFoundText,
   placeholder,
@@ -92,6 +93,7 @@ const Select = <T,>({
 
   return (
     <Dropdown
+      disabled={disabled}
       showInternalSearch={showInternalSearch}
       fetchMoreText={"Fetch more"}
       autoscrollText={"Autoscroll"}
@@ -124,7 +126,7 @@ const Select = <T,>({
           value={isString(displayValue) ? displayValue : (
             <Stack gap={6} wrap="wrap" style={{ marginBottom: 6 }}>{displayValue}</Stack>
           )}
-          style={{ paddingRight: 0, cursor: "pointer" }}
+          style={{ paddingRight: 0, cursor: !disabled ? "pointer" : "not-allowed" }}
         />
       )}
     </Dropdown>

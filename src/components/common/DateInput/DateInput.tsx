@@ -11,7 +11,6 @@ import "./DateInput.css";
 export type Props = DatePickerProps & {
   id: string;
   error: boolean,
-  value?: string,
   required?: boolean,
   placeholder?: string,
   enableTime?: boolean,
@@ -27,6 +26,7 @@ const StyledInput = styled(Input)`
 const DateInput: FC<Props> = ({
   id,
   error,
+  value,
   onChange,
   enableTime,
   placeholder,
@@ -45,6 +45,7 @@ const DateInput: FC<Props> = ({
           time_24hr: true,
         }),
       }}
+      value={value}
       defaultValue=""
       onChange={onChange}
       render={({ defaultValue, ...props }, ref) => (
