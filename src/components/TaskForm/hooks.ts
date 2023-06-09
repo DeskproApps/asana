@@ -18,14 +18,14 @@ import type {
   Member as MemberType,
 } from "../../services/asana/types";
 
-type UseFormDeps = (workspaceId: Workspace["gid"]) => {
+export type Result = {
   workspaceOptions: Array<Option<Workspace["gid"]>>,
   projectOptions: Array<Option<Project["gid"]>>,
   userOptions: Array<Option<MemberType["gid"]>>,
   tagOptions: Array<Option<TagType["gid"]>>,
 };
 
-const useFormDeps: UseFormDeps = (workspaceId) => {
+const useFormDeps = (workspaceId?: Workspace["gid"]): Result => {
   const workspaces = useQueryWithClient(
     [QueryKey.WORKSPACES],
     (client) => getWorkspacesService(client),

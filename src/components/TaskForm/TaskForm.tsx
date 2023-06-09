@@ -148,7 +148,7 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
           loading={isSubmitting}
         />
         {isEditMode && onCancel && (
-          <Button text="Cancel" intent="tertiary" onClick={onCancel}/>
+          <Button type="button" text="Cancel" intent="tertiary" onClick={onCancel}/>
         )}
       </Stack>
     </form>
