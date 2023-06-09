@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import has from "lodash/has";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,12 +27,16 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
     defaultValues: getInitValues(),
     resolver: zodResolver(validationSchema),
   });
+  const [workspaceId] = watch(["workspace"]);
   const {
     tagOptions,
     userOptions,
     projectOptions,
     workspaceOptions,
-  } = useFormDeps(watch("workspace"));
+  } = useFormDeps(workspaceId);
+
+  // reset project if workspace changed
+  useEffect(() => setValue("project", ""), [workspaceId, setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -148,7 +153,7 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error }) => {
           loading={isSubmitting}
         />
         {isEditMode && onCancel && (
-          <Button text="Cancel" intent="tertiary" onClick={onCancel}/>
+          <Button type="button" text="Cancel" intent="tertiary" onClick={onCancel}/>
         )}
       </Stack>
     </form>

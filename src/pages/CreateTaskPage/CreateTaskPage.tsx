@@ -4,9 +4,11 @@ import map from "lodash/map";
 import size from "lodash/size";
 import { useNavigate } from "react-router-dom";
 import {
+  useDeskproElements,
   useDeskproAppClient,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
+import { useSetTitle } from "../../hooks";
 import { setEntityService } from "../../services/deskpro";
 import { createTaskService } from "../../services/asana";
 import { useAsyncError } from "../../hooks";
@@ -46,6 +48,18 @@ const CreateTaskPage: FC = () => {
         }
       });
   }, [client, ticketId, asyncErrorHandler, navigate]);
+
+  useSetTitle("Link Tasks");
+
+  useDeskproElements(({ registerElement, clearElements }) => {
+    clearElements();
+
+    registerElement("refresh", { type: "refresh_button" });
+    registerElement("home", {
+      type: "home_button",
+      payload: { type: "changePage", path: "/home" },
+    });
+  });
 
   return (
     <CreateTask

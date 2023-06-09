@@ -46,7 +46,7 @@ const queryProvider = {
   },
 };
 
-const wrap = <P>(node: ReactElement<P>, options?: WrapperOptions): ReactElement<P> => {
+const wrappers = <P>(node: ReactElement<P>, options?: WrapperOptions): ReactElement<P> => {
   let children = node;
 
   if (options?.appSdk) {
@@ -73,7 +73,7 @@ const wrap = <P>(node: ReactElement<P>, options?: WrapperOptions): ReactElement<
 }
 
 const render = (node: ReactElement, options?: RenderOptions): RenderResult => {
-  return testingLibraryRender(wrap(node, options?.wrappers), options);
+  return testingLibraryRender(wrappers(node, options?.wrappers), options);
 };
 
-export { render, wrap };
+export { render, wrappers };
