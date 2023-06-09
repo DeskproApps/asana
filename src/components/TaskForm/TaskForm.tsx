@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import has from "lodash/has";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,13 +27,17 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) =>
     defaultValues: getInitValues(task),
     resolver: zodResolver(validationSchema),
   });
+  const [workspaceId] = watch(["workspace"]);
   const {
     isLoading,
     tagOptions,
     userOptions,
     projectOptions,
     workspaceOptions,
-  } = useFormDeps(watch("workspace"));
+  } = useFormDeps(workspaceId);
+
+  // reset project if workspace changed
+  useEffect(() => setValue("project", ""), [workspaceId, setValue]);
 
   if (isLoading) {
     return (
