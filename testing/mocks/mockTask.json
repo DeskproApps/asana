@@ -3,24 +3,25 @@
     "gid": "task001",
     "assignee": {
       "gid": "user001",
-      "email": "ilia.makarov@me.com",
-      "name": "ilia makarov",
+      "email": "armen.tamzarianv@me.com",
+      "name": "Armen Tamzarian",
       "photo": {
-        "image_21x21": "https://s3.us-east-1.amazonaws.com/asana-user-private-us-east-1/assets/1201873797723140/profile_photos/1204600336177229/75780081e2c697b3c992ed6b55bf4cb0_21x21.png",
-        "image_27x27": "https://s3.us-east-1.amazonaws.com/asana-user-private-us-east-1/assets/1201873797723140/profile_photos/1204600336177229/75780081e2c697b3c992ed6b55bf4cb0_27x27.png",
-        "image_36x36": "https://s3.us-east-1.amazonaws.com/asana-user-private-us-east-1/assets/1201873797723140/profile_photos/1204600336177229/75780081e2c697b3c992ed6b55bf4cb0_36x36.png",
-        "image_60x60": "https://s3.us-east-1.amazonaws.com/asana-user-private-us-east-1/assets/1201873797723140/profile_photos/1204600336177229/75780081e2c697b3c992ed6b55bf4cb0_60x60.png",
-        "image_128x128": "https://s3.us-east-1.amazonaws.com/asana-user-private-us-east-1/assets/1201873797723140/profile_photos/1204600336177229/75780081e2c697b3c992ed6b55bf4cb0_128x128.png",
-        "image_1024x1024": "https://s3.us-east-1.amazonaws.com/asana-user-private-us-east-1/assets/1201873797723140/profile_photos/1204600336177229/75780081e2c697b3c992ed6b55bf4cb0_huge.jpeg"
+        "image_21x21": "avatar_21x21.png",
+        "image_27x27": "avatar_27x27.png",
+        "image_36x36": "avatar_36x36.png",
+        "image_60x60": "avatar_60x60.png",
+        "image_128x128": "avatar_128x128.png",
+        "image_1024x1024": "avatar_huge.jpeg"
       }
     },
     "completed": false,
-    "created_at": "2023-05-15T10:47:49.656Z",
-    "due_at": "2023-05-19T14:00:00.000Z",
-    "due_on": "2023-05-19",
-    "html_notes": "<body>this is description\n<ol><li>item 1</li><li>item 2</li><li>item 3</li></ol>\n<strong>Unnumerable</strong> list\n<ul><li>item <strong>one</strong></li><li>item <em>two</em></li><li>item <u>three</u></li><li>item <s>four</s></li></ul></body>",
-    "name": "Link Asana tasks to ticket DP",
-    "permalink_url": "https://app.asana.com/0/project001/1204600346922846",
+    "created_at": "2023-06-09T06:39:01.205Z",
+    "due_at": null,
+    "due_on": "2023-07-01",
+    "html_notes": "<body>this is description</body>",
+    "name": "Mock Task",
+    "notes": "this is description",
+    "permalink_url": "https://app.asana.com/0/project001/task001",
     "projects": [
       {
         "gid": "project001",
@@ -30,15 +31,19 @@
     ],
     "tags": [
       {
-        "gid": "tag001",
-        "color": "light-orange",
-        "name": "development"
+        "gid": "tag002",
+        "color": "light-blue",
+        "name": "MVP"
       },
       {
-        "gid": "tag002",
+        "gid": "tag001",
         "color": "light-blue",
         "name": "Deskpro"
       }
-    ]
+    ],
+    "workspace": {
+      "gid": "workspace001",
+      "name": "Customer success"
+    }
   }
 }
