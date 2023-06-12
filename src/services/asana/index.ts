@@ -10,3 +10,4 @@ export { createTaskService } from "./createTaskService";
 export { getUsersService } from "./getUsersService";
 export { getTagsService } from "./getTagsService";
 export { updateTaskService } from "./updateTaskService";
+export { createTaskCommentService } from "./createTaskCommentService";

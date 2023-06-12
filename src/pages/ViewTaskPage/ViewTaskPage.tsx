@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import noop from "lodash/noop";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   LoadingSpinner,
   useDeskproElements,
@@ -15,6 +15,7 @@ import type { FC } from "react";
 import type { Task } from "../../services/asana/types";
 
 const ViewTaskPage: FC = () => {
+  const navigate = useNavigate();
   const { taskId } = useParams();
   const { client } = useDeskproAppClient();
   const { isLoading, task, subTasks, comments } = useTask(taskId);
@@ -28,6 +29,10 @@ const ViewTaskPage: FC = () => {
       .then(() => queryClient.invalidateQueries())
       .catch(noop);
   }, [client]);
+
+  const onNavigateToAddComment = useCallback(() => {
+    navigate(`/view/${taskId}/comments/new`);
+  }, [navigate, taskId]);
 
   useSetTitle("Asana");
 
@@ -63,6 +68,7 @@ const ViewTaskPage: FC = () => {
       subTasks={subTasks}
       comments={comments}
       onCompleteSubtask={onCompleteSubtask}
+      onNavigateToAddComment={onNavigateToAddComment}
     />
   );
 };

@@ -9,12 +9,16 @@ import type { Story } from "../../../services/asana/types";
 
 type Props = {
   comments: Story[],
+  onNavigateToAddComment: () => void,
 };
 
-const Comments: FC<Props> = ({ comments }) => {
+const Comments: FC<Props> = ({ comments, onNavigateToAddComment }) => {
   return (
     <Container>
-      <Title title={`Comments (${size(comments)})`}/>
+      <Title
+        title={`Comments (${size(comments)})`}
+        onClick={onNavigateToAddComment}
+      />
 
       {comments.map(({ created_at, created_by, html_text, gid }) => (
         <Fragment key={gid}>

@@ -18,6 +18,7 @@ import {
   VerifySettings,
   LoadingAppPage,
   CreateTaskPage,
+  CreateTaskCommentPage,
 } from "./pages";
 import type { FC } from "react";
 import type { EventPayload } from "./types";
@@ -68,6 +69,7 @@ const App: FC = () => {
         <Route path="/create" element={<CreateTaskPage/>} />
         <Route path="/view/:taskId" element={<ViewTaskPage/>} />
         <Route path="/edit/:taskId" element={<EditTaskPage/>} />
+        <Route path="/view/:taskId/comments/new" element={<CreateTaskCommentPage/>} />
         <Route index element={<LoadingAppPage/>} />
       </Routes>
       <br/><br/><br/>
