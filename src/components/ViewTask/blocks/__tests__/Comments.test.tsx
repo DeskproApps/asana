@@ -1,4 +1,5 @@
-import { cleanup } from "@testing-library/react";
+import { cleanup, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { render } from "../../../../../testing";
 import { Comments } from "../Comments";
 
@@ -44,7 +45,7 @@ describe("ViewTask", () => {
 
     test("render", async () => {
       const { findByText } = render((
-        <Comments comments={mockComments as never} />
+        <Comments comments={mockComments as never} onNavigateToAddComment={jest.fn()} />
       ), { wrappers: { theme: true } });
 
       expect(await findByText(/Comments \(2\)/i)).toBeInTheDocument();
@@ -54,10 +55,26 @@ describe("ViewTask", () => {
 
     test("empty comments", async () => {
       const { findByText } = render((
-        <Comments comments={[]} />
+        <Comments comments={[]} onNavigateToAddComment={jest.fn()} />
       ), { wrappers: { theme: true } });
 
       expect(await findByText(/Comments \(0\)/i)).toBeInTheDocument();
+    });
+
+    test("should navigate to add new comments", async () => {
+      const mockOnNavigateToAddComment = jest.fn();
+
+      const { findByRole } = render((
+        <Comments comments={[]} onNavigateToAddComment={mockOnNavigateToAddComment} />
+      ), { wrappers: { theme: true } });
+
+      const navigateButton = await findByRole("button");
+
+      await act(async () => {
+        await userEvent.click(navigateButton as Element);
+      });
+
+      expect(mockOnNavigateToAddComment).toHaveBeenCalledTimes(1);
     });
   });
 });

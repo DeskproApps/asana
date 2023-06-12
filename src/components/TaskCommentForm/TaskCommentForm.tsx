@@ -24,7 +24,7 @@ const TaskCommentForm: FC<Props> = ({ error, onSubmit, onCancel }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {error && <ErrorBlock text={error}/>}
 
-      <Label htmlFor="comment" label="Comment">
+      <Label htmlFor="comment" label="New comment">
         <TextArea
           variant="inline"
           id="comment"
