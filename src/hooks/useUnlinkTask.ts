@@ -6,6 +6,7 @@ import {
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
 import { deleteEntityService } from "../services/deskpro";
+import { useLinkedAutoComment } from "./useLinkedAutoComment";
 import type { TicketContext } from "../types";
 import type { Task } from "../services/asana/types";
 
@@ -18,6 +19,7 @@ const useUnlinkTask: UseUnlinkTask = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext() as { context: TicketContext };
+  const { addUnlinkComment } = useLinkedAutoComment();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const ticketId = get(context, ["data", "ticket", "id"]);
@@ -32,12 +34,13 @@ const useUnlinkTask: UseUnlinkTask = () => {
     Promise
       .all([
         deleteEntityService(client, ticketId, taskId),
+        addUnlinkComment(taskId),
       ])
       .then(() => {
         setIsLoading(false);
         navigate("/home");
       });
-  }, [client, ticketId, navigate]);
+  }, [client, ticketId, navigate, addUnlinkComment]);
 
   return { isLoading, unlinkTask }
 };

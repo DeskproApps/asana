@@ -41,6 +41,7 @@ export type Request = <T>(
 /** Deskpro types */
 export type Settings = {
   access_tokens?: string,
+  add_comment_when_linking?: boolean,
 };
 
 export type TicketData = {

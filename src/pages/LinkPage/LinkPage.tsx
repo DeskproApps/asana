@@ -9,7 +9,11 @@ import {
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
 import { setEntityService } from "../../services/deskpro";
-import { useSetTitle, useAsyncError } from "../../hooks";
+import {
+  useSetTitle,
+  useAsyncError,
+  useLinkedAutoComment,
+} from "../../hooks";
 import { searchTasks } from "../../utils";
 import { useTasks } from "./hooks";
 import { LinkTasks } from "../../components";
@@ -21,6 +25,7 @@ const LinkPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext() as { context: TicketContext };
+  const { addLinkComment } = useLinkedAutoComment();
   const { asyncErrorHandler } = useAsyncError();
 
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<Workspace["gid"]|null>(null);
@@ -66,16 +71,15 @@ const LinkPage: FC = () => {
 
     setIsSubmitting(true);
     Promise.all([
-      ...selectedTasks.map((task) => {
-        return setEntityService(client, ticketId, task.gid)
-      }),
+      ...selectedTasks.map((task) => setEntityService(client, ticketId, task.gid)),
+      ...selectedTasks.map((task) => addLinkComment(task.gid))
     ])
       .then(() => {
         setIsSubmitting(false);
         navigate("/home")
       })
       .catch(asyncErrorHandler);
-  }, [client, ticketId, selectedTasks, navigate, asyncErrorHandler]);
+  }, [client, ticketId, selectedTasks, navigate, asyncErrorHandler, addLinkComment]);
 
   useSetTitle("Link Tasks");
 
