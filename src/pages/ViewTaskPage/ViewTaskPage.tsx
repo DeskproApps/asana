@@ -18,7 +18,7 @@ const ViewTaskPage: FC = () => {
   const navigate = useNavigate();
   const { taskId } = useParams();
   const { client } = useDeskproAppClient();
-  const { isLoading, task, subTasks, comments } = useTask(taskId);
+  const { isLoading, task, subTasks, comments, attachments } = useTask(taskId);
 
   const onCompleteSubtask = useCallback((subtaskId: Task["gid"], completed: boolean) => {
     if (!client) {
@@ -67,6 +67,7 @@ const ViewTaskPage: FC = () => {
       task={task as Task}
       subTasks={subTasks}
       comments={comments}
+      attachments={attachments}
       onCompleteSubtask={onCompleteSubtask}
       onNavigateToAddComment={onNavigateToAddComment}
     />

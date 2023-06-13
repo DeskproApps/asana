@@ -3,11 +3,13 @@ import map from "lodash/map";
 import get from "lodash/get";
 import size from "lodash/size";
 import { useParams, useNavigate } from "react-router-dom";
+import { delay } from "../../utils";
 import { useSetTitle, useAsyncError } from "../../hooks";
 import {
   createTaskCommentService,
   uploadTaskAttachmentService,
 } from "../../services/asana";
+import { queryClient } from "../../query";
 import { CreateTaskComment } from "../../components";
 import {
   getValues,
@@ -56,6 +58,8 @@ const CreateTaskCommentPage: FC = () => {
     setError(null);
 
     return Promise.all(promises)
+      .then(() => queryClient.invalidateQueries())
+      .then(() => delay(2000))
       .then(() => navigate(`/view/${taskId}`))
       .catch((err) => {
         const errors = map(get(err, ["data", "errors"]), "message").filter(Boolean);

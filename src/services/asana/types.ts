@@ -79,3 +79,10 @@ export type Story = {
   created_at: DateAt,
   created_by: Member,
 };
+
+export type Attachment = {
+  gid: string,
+  name: string,
+  download_url: string,
+  size: number,
+};

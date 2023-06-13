@@ -20,6 +20,7 @@ enum QueryKey {
   TASK_STORIES = "taskStories",
   USERS = "users",
   TAGS = "tags",
+  ATTACHMENTS = "attachments",
 }
 
 export { queryClient, QueryKey };

@@ -4,16 +4,18 @@ import {
   getTaskService,
   getSubTasksService,
   getTaskStoriesService,
+  getTaskAttachmentsService,
 } from "../../services/asana";
 import { QueryKey } from "../../query";
 import type { Maybe } from "../../types";
-import type { Task, Story } from "../../services/asana/types";
+import type { Task, Story, Attachment } from "../../services/asana/types";
 
 type UseTask = (taskId?: Task["gid"]) => {
   isLoading: boolean,
   task: Maybe<Task>,
   subTasks: Task[],
   comments: Story[],
+  attachments: Attachment[],
 };
 
 const useTask: UseTask = (taskId) => {
@@ -42,11 +44,18 @@ const useTask: UseTask = (taskId) => {
     },
   );
 
+  const attachments = useQueryWithClient(
+    [QueryKey.ATTACHMENTS, taskId as Task["gid"]],
+    (client) => getTaskAttachmentsService(client, taskId as Task["gid"]),
+    { enabled: Boolean(taskId) },
+  );
+
   return {
     isLoading: [task, subTasks, comments].some(({ isFetching }) => isFetching),
     task: get(task, ["data", "data"]) || null,
     subTasks: get(subTasks, ["data", "data"], []) || [],
     comments: (get(comments, ["data"], []) || []) as Story[],
+    attachments: get(attachments, ["data", "data"], []) || [],
   };
 };
 
