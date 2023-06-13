@@ -45,6 +45,8 @@ export const TASK_FIELDS = [
   ...WORKSPACE_FIELDS.map((field) => `workspace.${field}`),
 ];
 
+export const ATTACHMENT_FIELDS = ["name", "download_url", "size"];
+
 export const TASK_STORY_FIELDS = [
   "type",
   "html_text",

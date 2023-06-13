@@ -3,7 +3,8 @@ import get from "lodash/get";
 import size from "lodash/size";
 import replace from "lodash/fp/replace";
 import flow from "lodash/fp/flow";
-import { P5, Stack } from "@deskpro/deskpro-ui";
+import { faFile } from "@fortawesome/free-regular-svg-icons";
+import { P5, Stack, AttachmentTag } from "@deskpro/deskpro-ui";
 import { Title, HorizontalDivider } from "@deskpro/app-sdk";
 import { format } from "../../../utils/date";
 import { getProjectName, getTaskDueDate, addBlankTargetToLinks } from "../../../utils";
@@ -16,13 +17,15 @@ import {
   Container,
 } from "../../common";
 import type { FC } from "react";
-import type { Task } from "../../../services/asana/types";
+import type { AnyIcon } from "@deskpro/deskpro-ui";
+import type { Task, Attachment } from "../../../services/asana/types";
 
 type Props = {
-  task: Task;
+  task: Task,
+  attachments: Attachment[],
 };
 
-const Details: FC<Props> = ({ task }) => {
+const Details: FC<Props> = ({ task, attachments }) => {
   const tags = useMemo(() => (get(task, ["tags"], []) || []), [task]);
   const description = flow(
     replace("<body>", ""),
@@ -54,10 +57,30 @@ const Details: FC<Props> = ({ task }) => {
           label="Description"
           text={(
             <P5
-              dangerouslySetInnerHTML={{ __html: addBlankTargetToLinks(description) || "-" }}
+              dangerouslySetInnerHTML={{
+                __html: description ? addBlankTargetToLinks(description) : "-"
+              }}
               style={{ whiteSpace: "pre-wrap" }}
             />
           )}
+        />
+        <Property
+          label="Attachments"
+          text={!size(attachments)
+            ? "-"
+            : (
+              <Stack gap={6} wrap="wrap">
+                {attachments.map((attach) => (
+                  <AttachmentTag
+                    key={attach.gid}
+                    href={attach.download_url}
+                    filename={attach.name}
+                    fileSize={attach.size}
+                    icon={faFile as AnyIcon}
+                  />
+                ))}
+              </Stack>
+            )}
         />
         <Property
           label="Status"
