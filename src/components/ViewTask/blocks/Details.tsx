@@ -19,7 +19,6 @@ import {
 import type { FC } from "react";
 import type { AnyIcon } from "@deskpro/deskpro-ui";
 import type { Task, Attachment } from "../../../services/asana/types";
-import {Project} from "../../LinkTasks/Project";
 
 type Props = {
   task: Task,
