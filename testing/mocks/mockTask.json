@@ -27,6 +27,11 @@
         "gid": "project001",
         "name": "Project: Deskpro Asana App",
         "permalink_url": "https://app.asana.com/0/project001/project001"
+      },
+      {
+        "gid": "project002",
+        "name": "Second Project",
+        "permalink_url": "https://app.asana.com/0/project002/project002"
       }
     ],
     "tags": [

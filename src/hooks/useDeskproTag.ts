@@ -33,11 +33,11 @@ const useDeskproTag: UseDeskproTag = () => {
     }
 
     return getTagsService(client, task.workspace.gid)
-      .then<void|{ data: Tag }>(({ data: tags }) => {
+      .then<{ data: Tag }>(({ data: tags }) => {
         const deskproTag = getDeskproTag(tags);
 
         return deskproTag
-          ? Promise.resolve()
+          ? Promise.resolve({ data: deskproTag })
           : createTagService(client, task.workspace.gid, DESKPRO_TAG as Tag)
       })
       .then<void|{ data: void }>((data) => {

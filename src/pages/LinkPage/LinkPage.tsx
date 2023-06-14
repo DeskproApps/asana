@@ -16,7 +16,7 @@ import {
   useDeskproTag,
   useLinkedAutoComment,
 } from "../../hooks";
-import { searchTasks } from "../../utils";
+import { searchTasks, getEntityMetadata } from "../../utils";
 import { useTasks } from "./hooks";
 import { LinkTasks } from "../../components";
 import type { FC, ChangeEvent } from "react";
@@ -75,7 +75,7 @@ const LinkPage: FC = () => {
 
     setIsSubmitting(true);
     Promise.all([
-      ...selectedTasks.map((task) => setEntityService(client, ticketId, task.gid)),
+      ...selectedTasks.map((task) => setEntityService(client, ticketId, task.gid, getEntityMetadata(task))),
       ...selectedTasks.map((task) => addLinkComment(task.gid)),
       ...selectedTasks.map((task) => addDeskproTag(task)),
       ...selectedTasks.map((task) => setSelectionState(task.gid, true, "email")),

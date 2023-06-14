@@ -11,6 +11,7 @@ import {
 import { useSetTitle, useLinkedAutoComment } from "../../hooks";
 import { setEntityService } from "../../services/deskpro";
 import { createTaskService } from "../../services/asana";
+import { getEntityMetadata } from "../../utils";
 import { useAsyncError } from "../../hooks";
 import { getTaskValues } from "../../components/TaskForm";
 import { CreateTask } from "../../components";
@@ -37,9 +38,9 @@ const CreateTaskPage: FC = () => {
     setError(null);
 
     return createTaskService(client, getTaskValues(values))
-      .then(({ data: { gid } }) => Promise.all([
-        setEntityService(client, ticketId, gid),
-        addLinkComment(gid),
+      .then(({ data: task }) => Promise.all([
+        setEntityService(client, ticketId, task.gid, getEntityMetadata(task)),
+        addLinkComment(task.gid),
       ]))
       .then(() => navigate("/home"))
       .catch((err) => {
