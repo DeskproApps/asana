@@ -6,3 +6,4 @@ export { getProjectName } from "./getProjectName";
 export { searchTasks } from "./searchTasks";
 export { addBlankTargetToLinks } from "./addBlankTargetToLinks";
 export { delay } from "./delay";
+export { getDeskproTag } from "./getDeskproTag";

@@ -13,3 +13,6 @@ export { updateTaskService } from "./updateTaskService";
 export { createTaskCommentService } from "./createTaskCommentService";
 export { uploadTaskAttachmentService } from "./uploadTaskAttachmentService";
 export { getTaskAttachmentsService } from "./getTaskAttachmentsService";
+export { createTagService } from "./createTagService";
+export { addTagToTaskService } from "./addTagToTaskService";
+export { removeTagFromTaskService } from "./removeTagFromTaskService";

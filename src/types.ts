@@ -58,7 +58,7 @@ export type NavigateToChangePage = { type: "changePage", path: To };
 
 export type EventPayload =
   | NavigateToChangePage
-  | { type: "unlink", taskId: Task["gid"] }
+  | { type: "unlink", task: Task }
 ;
 
 /** Entities */

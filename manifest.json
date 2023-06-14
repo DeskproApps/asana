@@ -26,7 +26,7 @@
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": { "entrypoint": "#/admin/verify_settings" },
+      "options": { "entrypoint": "https://localhost:3001/#/admin/verify_settings" },
       "isRequired": false,
       "isBackendOnly": true,
       "order": 20
@@ -55,6 +55,15 @@
       "isRequired": false,
       "isBackendOnly": false,
       "order": 50
+    },
+    "add_deskpro_tag": {
+      "title": "Add \"Deskpro\" label when creating or linking Task",
+      "description": "Automatically adding a label to indicate in Asana that the task is currently linked to a Deskpro ticket",
+      "type": "boolean",
+      "default": true,
+      "isRequired": false,
+      "isBackendOnly": false,
+      "order": 60
     }
   },
   "proxy": {

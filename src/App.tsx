@@ -44,7 +44,7 @@ const App: FC = () => {
           navigate(payload.path);
         }
       })
-      .with("unlink", () => unlinkTask(get(payload, ["taskId"])))
+      .with("unlink", () => unlinkTask(get(payload, ["task"])))
       .run();
   }, 500);
 
