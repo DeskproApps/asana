@@ -9,8 +9,14 @@ import {
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
 import { setEntityService } from "../../services/deskpro";
-import { useSetTitle, useAsyncError } from "../../hooks";
-import { searchTasks } from "../../utils";
+import {
+  useSetTitle,
+  useReplyBox,
+  useAsyncError,
+  useDeskproTag,
+  useLinkedAutoComment,
+} from "../../hooks";
+import { searchTasks, getEntityMetadata } from "../../utils";
 import { useTasks } from "./hooks";
 import { LinkTasks } from "../../components";
 import type { FC, ChangeEvent } from "react";
@@ -21,6 +27,9 @@ const LinkPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext() as { context: TicketContext };
+  const { addLinkComment } = useLinkedAutoComment();
+  const { setSelectionState } = useReplyBox();
+  const { addDeskproTag } = useDeskproTag();
   const { asyncErrorHandler } = useAsyncError();
 
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<Workspace["gid"]|null>(null);
@@ -66,16 +75,18 @@ const LinkPage: FC = () => {
 
     setIsSubmitting(true);
     Promise.all([
-      ...selectedTasks.map((task) => {
-        return setEntityService(client, ticketId, task.gid)
-      }),
+      ...selectedTasks.map((task) => setEntityService(client, ticketId, task.gid, getEntityMetadata(task))),
+      ...selectedTasks.map((task) => addLinkComment(task.gid)),
+      ...selectedTasks.map((task) => addDeskproTag(task)),
+      ...selectedTasks.map((task) => setSelectionState(task.gid, true, "email")),
+      ...selectedTasks.map((task) => setSelectionState(task.gid, true, "note")),
     ])
       .then(() => {
         setIsSubmitting(false);
         navigate("/home")
       })
       .catch(asyncErrorHandler);
-  }, [client, ticketId, selectedTasks, navigate, asyncErrorHandler]);
+  }, [client, ticketId, selectedTasks, navigate, asyncErrorHandler, addLinkComment, setSelectionState, addDeskproTag]);
 
   useSetTitle("Link Tasks");
 

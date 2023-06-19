@@ -4,15 +4,14 @@ import {
   LoadingSpinner,
   useDeskproElements,
 } from "@deskpro/app-sdk";
-import { useSetTitle, useSetBadgeCount } from "../../hooks";
-import { useTasks } from "./hooks";
+import { useSetTitle, useLinkedTasks, useSetBadgeCount } from "../../hooks";
 import { Home } from "../../components";
 import type { FC } from "react";
 import type { Task } from "../../services/asana/types";
 
 const HomePage: FC = () => {
   const navigate = useNavigate();
-  const { isLoading, tasks } = useTasks();
+  const { isLoading, tasks } = useLinkedTasks();
 
   const onNavigateToTask = useCallback((taskId: Task["gid"]) => {
     navigate(`/view/${taskId}`);

@@ -4,7 +4,7 @@ import type {
   IDeskproClient,
   DropdownValueType,
 } from "@deskpro/app-sdk";
-import type { Task } from "./services/asana/types";
+import type { Task, Project, Workspace } from "./services/asana/types";
 
 /** Common types */
 export type Maybe<T> = T | undefined | null;
@@ -41,6 +41,7 @@ export type Request = <T>(
 /** Deskpro types */
 export type Settings = {
   access_tokens?: string,
+  add_comment_when_linking?: boolean,
 };
 
 export type TicketData = {
@@ -57,7 +58,14 @@ export type NavigateToChangePage = { type: "changePage", path: To };
 
 export type EventPayload =
   | NavigateToChangePage
-  | { type: "unlink", taskId: Task["gid"] }
+  | { type: "unlink", task: Task }
 ;
+
+export type EntityMetadata = {
+  id: Task["gid"],
+  name: Task["name"],
+  workspace: Workspace["name"],
+  projects: Project["name"],
+};
 
 /** Entities */

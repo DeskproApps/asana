@@ -51,10 +51,10 @@ const ViewTaskPage: FC = () => {
       type: "menu",
       items: [{
         title: "Unlink task",
-        payload: { type: "unlink", taskId },
+        payload: { type: "unlink", task },
       }],
     });
-  }, [taskId]);
+  }, [task]);
 
   if (isLoading) {
     return (

@@ -53,3 +53,5 @@ export const TASK_STORY_FIELDS = [
   "created_at",
   ...MEMBER_FIELDS.map((field) => `created_by.${field}`),
 ];
+
+export const DESKPRO_TAG = { name: "Deskpro", color: "light-blue" };

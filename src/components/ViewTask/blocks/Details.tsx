@@ -41,6 +41,10 @@ const Details: FC<Props> = ({ task, attachments }) => {
           link={get(task, ["permalink_url"], "#")}
         />
         <Property
+          label="Workspace"
+          text={get(task, ["workspace", "name"], "-")}
+        />
+        <Property
           label="Proect"
           text={getProjectName(task)}
         />

@@ -8,9 +8,14 @@ import {
   useDeskproAppClient,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { useSetTitle } from "../../hooks";
+import {
+  useSetTitle,
+  useDeskproTag,
+  useLinkedAutoComment,
+} from "../../hooks";
 import { setEntityService } from "../../services/deskpro";
 import { createTaskService } from "../../services/asana";
+import { getEntityMetadata } from "../../utils";
 import { useAsyncError } from "../../hooks";
 import { getTaskValues } from "../../components/TaskForm";
 import { CreateTask } from "../../components";
@@ -22,6 +27,8 @@ const CreateTaskPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext() as { context: TicketContext };
+  const { addLinkComment } = useLinkedAutoComment();
+  const { addDeskproTag } = useDeskproTag();
   const { asyncErrorHandler } = useAsyncError();
   const [error, setError] = useState<Maybe<string|string[]>>(null);
   const ticketId = get(context, ["data", "ticket", "id"]);
@@ -36,7 +43,11 @@ const CreateTaskPage: FC = () => {
     setError(null);
 
     return createTaskService(client, getTaskValues(values))
-      .then(({ data: { gid } }) => setEntityService(client, ticketId, gid))
+      .then(({ data: task }) => Promise.all([
+        setEntityService(client, ticketId, task.gid, getEntityMetadata(task)),
+        addLinkComment(task.gid),
+        addDeskproTag(task),
+      ]))
       .then(() => navigate("/home"))
       .catch((err) => {
         const errors = map(get(err, ["data", "errors"]), "message").filter(Boolean);
@@ -47,7 +58,7 @@ const CreateTaskPage: FC = () => {
           asyncErrorHandler(err);
         }
       });
-  }, [client, ticketId, asyncErrorHandler, navigate]);
+  }, [client, ticketId, asyncErrorHandler, navigate, addLinkComment, addDeskproTag]);
 
   useSetTitle("Link Tasks");
 

@@ -84,7 +84,7 @@ const useFormDeps = (workspaceId?: Workspace["gid"]): Result => {
       // @ts-ignore // need to fix typing in the @deskpro/app-sdk
       select: (data) => {
         return (get(data, ["data"], []) || []).map(({ gid, name, color }: TagType) => {
-          return getOption(gid, createElement(Tag, { name, color }), name);
+          return getOption(gid, createElement(Tag, { name, color, key: gid }), name);
         });
       },
     }

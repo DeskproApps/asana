@@ -42,10 +42,10 @@ const TaskItem: FC<Props> = ({ task, onNavigateToTask }) => {
         link={get(task, ["permalink_url"], "#")}
       />
       <TwoProperties
-        leftLabel="Project"
-        leftText={getProjectName(task)}
-        rightLabel="Due Date"
-        rightText={getTaskDueDate(task)}
+        leftLabel="Workspace"
+        leftText={get(task, ["workspace", "name"], "-")}
+        rightLabel="Project"
+        rightText={getProjectName(task)}
       />
       <TwoProperties
         leftLabel="Assignee"
@@ -54,14 +54,16 @@ const TaskItem: FC<Props> = ({ task, onNavigateToTask }) => {
             <OverflowText>{get(task, ["assignee", "name"], "-")}</OverflowText>
           </P5>
         )}
-        rightLabel="Status"
-        rightText={(
+        rightLabel="Due Date"
+        rightText={getTaskDueDate(task)}
+      />
+      <TwoProperties
+        leftLabel="Status"
+        leftText={(
           <Status status={get(task, ["completed"]) ? "completed" : "not_completed"} />
         )}
-      />
-      <Property
-        label="Deskpro Tickets"
-        text={<DeskproTickets entityId={get(task, ["gid"], "")} />}
+        rightLabel="Deskpro Tickets"
+        rightText={<DeskproTickets entityId={get(task, ["gid"], "")} />}
       />
       <Property
         label="Tags"

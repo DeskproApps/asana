@@ -7,23 +7,29 @@ import {
   LoadingSpinner,
   useDeskproElements,
   useDeskproAppClient,
+  useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
 import { useSetTitle, useAsyncError } from "../../hooks";
 import { useTaskDeps } from "./hooks";
+import { setEntityService } from "../../services/deskpro";
 import { updateTaskService } from "../../services/asana";
+import { getEntityMetadata } from "../../utils";
 import { getTaskValues } from "../../components/TaskForm";
 import { EditTask } from "../../components";
 import type { FC } from "react";
-import type { Maybe } from "../../types";
+import type { Maybe, TicketContext } from "../../types";
 import type { FormValidationSchema } from "../../components/TaskForm";
 
 const EditTaskPage: FC = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
+  const { context } = useDeskproLatestAppContext() as { context: TicketContext };
   const { asyncErrorHandler } = useAsyncError();
   const { isLoading, task } = useTaskDeps(taskId);
   const [error, setError] = useState<Maybe<string|string[]>>(null);
+
+  const ticketId = get(context, ["data", "ticket", "id"]);
 
   const onCancel = useCallback(() => {
     if (!taskId) {
@@ -34,13 +40,14 @@ const EditTaskPage: FC = () => {
   }, [navigate, taskId]);
 
   const onSubmit = useCallback((values: FormValidationSchema) => {
-    if (!client || !taskId) {
+    if (!client || !taskId || !ticketId) {
       return Promise.resolve();
     }
 
     setError(null);
 
     return updateTaskService(client, taskId, getTaskValues(values, true))
+      .then(({ data: task }) => setEntityService(client, ticketId, task.gid, getEntityMetadata(task)))
       .then(() => navigate(`/view/${taskId}`))
       .catch((err) => {
         const errors = map(get(err, ["data", "errors"]), "message").filter(Boolean);
@@ -51,7 +58,7 @@ const EditTaskPage: FC = () => {
           asyncErrorHandler(err);
         }
       });
-  }, [client, taskId, navigate, asyncErrorHandler]);
+  }, [client, taskId, navigate, asyncErrorHandler, ticketId]);
 
   useSetTitle("Edit Task");
 
