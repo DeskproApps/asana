@@ -12,9 +12,13 @@ import {
 import { useSetTitle, useAsyncError } from "../../hooks";
 import { useTaskDeps } from "./hooks";
 import { setEntityService } from "../../services/deskpro";
-import { updateTaskService } from "../../services/asana";
+import {
+  updateTaskService,
+  addProjectToTaskService,
+  removeProjectToTaskService,
+} from "../../services/asana";
 import { getEntityMetadata } from "../../utils";
-import { getTaskValues } from "../../components/TaskForm";
+import { getTaskValues, getProjectsToUpdate } from "../../components/TaskForm";
 import { EditTask } from "../../components";
 import type { FC } from "react";
 import type { Maybe, TicketContext } from "../../types";
@@ -47,7 +51,20 @@ const EditTaskPage: FC = () => {
     setError(null);
 
     return updateTaskService(client, taskId, getTaskValues(values, true))
-      .then(({ data: task }) => setEntityService(client, ticketId, task.gid, getEntityMetadata(task)))
+      .then(({ data: task }) => {
+        const { addProjects, removeProjects } = getProjectsToUpdate(task, values);
+
+        return Promise.all([
+          setEntityService(client, ticketId, task.gid, getEntityMetadata(task)),
+          // update Project
+          ...(!size(addProjects) ? [Promise.resolve()] : addProjects.map(
+            (projectId) => addProjectToTaskService(client, task.gid, projectId)
+          )),
+          ...(!size(removeProjects) ? [Promise.resolve()] : removeProjects.map(
+            (projectId) => removeProjectToTaskService(client, task.gid, projectId)
+          )),
+        ]);
+      })
       .then(() => navigate(`/view/${taskId}`))
       .catch((err) => {
         const errors = map(get(err, ["data", "errors"]), "message").filter(Boolean);

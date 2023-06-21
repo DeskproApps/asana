@@ -16,3 +16,5 @@ export { getTaskAttachmentsService } from "./getTaskAttachmentsService";
 export { createTagService } from "./createTagService";
 export { addTagToTaskService } from "./addTagToTaskService";
 export { removeTagFromTaskService } from "./removeTagFromTaskService";
+export { addProjectToTaskService } from "./addProjectToTaskService";
+export { removeProjectToTaskService } from "./removeProjectToTaskService";
