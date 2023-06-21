@@ -7,7 +7,7 @@ const removeTagFromTaskService = (
   taskId: Task["gid"],
   tagId: Tag["gid"],
 ) => {
-  return baseRequest<void>(client, {
+  return baseRequest<{ tag: Tag["gid"] }>(client, {
     url: `/tasks/${taskId}/removeTag`,
     method: "POST",
     data: {

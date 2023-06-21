@@ -8,7 +8,7 @@ import { getOption } from "../../utils";
 import { format } from "../../utils/date";
 import { DATE_ON_FORMAT } from "../../constants";
 import type { DateOn } from "../../types";
-import type {Project, Task} from "../../services/asana/types";
+import type { Project, Tag, Task } from "../../services/asana/types";
 import type { FormValidationSchema, TaskValues } from "./types";
 
 const validationSchema = z.object({
@@ -56,18 +56,23 @@ const getTaskValues = (values: FormValidationSchema, isEditMode?: boolean): Task
   };
 };
 
-const getProjectsToUpdate = (task: Task, values: FormValidationSchema): {
-  addProjects: Array<Project["gid"]>,
-  removeProjects: Array<Project["gid"]>,
-} => {
-  const oldProjects = map(get(task, ["projects"], []) || [], "gid");
-  const updateProjects = get(values, ["projects"], []) || [];
+const getEntitiesToUpdate = <Entity, EntityId>(
+  entity: "projects"|"tags",
+) => (
+  task: Task, values: FormValidationSchema,
+): { addIds: Array<EntityId>, removeIds: Array<EntityId> } => {
+  const oldProjects = map<Entity>(get(task, [entity as never], []) || [], "gid");
+  const updateProjects = get(values, [entity], []) || [];
 
   return {
-    addProjects: difference(updateProjects, oldProjects),
-    removeProjects: difference(oldProjects, updateProjects),
+    addIds: difference(updateProjects, oldProjects),
+    removeIds: difference(oldProjects, updateProjects),
   };
 };
+
+const getProjectsToUpdate = getEntitiesToUpdate<Project, Project["gid"]>("projects");
+
+const getTagsToUpdate = getEntitiesToUpdate<Tag, Tag["gid"]>("tags");
 
 const getStatusOptions = () => [
   getOption("completed", "Completed"),
@@ -77,6 +82,7 @@ const getStatusOptions = () => [
 export {
   getInitValues,
   getTaskValues,
+  getTagsToUpdate,
   validationSchema,
   getStatusOptions,
   getProjectsToUpdate,

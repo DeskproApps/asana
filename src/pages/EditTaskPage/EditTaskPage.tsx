@@ -14,11 +14,11 @@ import { useTaskDeps } from "./hooks";
 import { setEntityService } from "../../services/deskpro";
 import {
   updateTaskService,
-  addProjectToTaskService,
-  removeProjectToTaskService,
+  updateTaskTagsService,
+  updateTaskProjectsService,
 } from "../../services/asana";
 import { getEntityMetadata } from "../../utils";
-import { getTaskValues, getProjectsToUpdate } from "../../components/TaskForm";
+import { getTaskValues, getProjectsToUpdate, getTagsToUpdate, } from "../../components/TaskForm";
 import { EditTask } from "../../components";
 import type { FC } from "react";
 import type { Maybe, TicketContext } from "../../types";
@@ -51,20 +51,11 @@ const EditTaskPage: FC = () => {
     setError(null);
 
     return updateTaskService(client, taskId, getTaskValues(values, true))
-      .then(({ data: task }) => {
-        const { addProjects, removeProjects } = getProjectsToUpdate(task, values);
-
-        return Promise.all([
-          setEntityService(client, ticketId, task.gid, getEntityMetadata(task)),
-          // update Project
-          ...(!size(addProjects) ? [Promise.resolve()] : addProjects.map(
-            (projectId) => addProjectToTaskService(client, task.gid, projectId)
-          )),
-          ...(!size(removeProjects) ? [Promise.resolve()] : removeProjects.map(
-            (projectId) => removeProjectToTaskService(client, task.gid, projectId)
-          )),
-        ]);
-      })
+      .then(({ data: task }) => Promise.all([
+        setEntityService(client, ticketId, task.gid, getEntityMetadata(task)),
+        ...updateTaskTagsService(client, taskId, getTagsToUpdate(task, values)),
+        ...updateTaskProjectsService(client, taskId, getProjectsToUpdate(task, values)),
+      ]))
       .then(() => navigate(`/view/${taskId}`))
       .catch((err) => {
         const errors = map(get(err, ["data", "errors"]), "message").filter(Boolean);

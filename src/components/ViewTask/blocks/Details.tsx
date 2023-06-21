@@ -103,7 +103,7 @@ const Details: FC<Props> = ({ task, attachments }) => {
         <Property
           label="Tags"
           text={(
-            <Stack gap={6}>
+            <Stack gap={6} wrap="wrap">
               {!size(tags) ? "-" : tags.map((tag) => (
                 <Tag key={tag.gid} {...tag} />
               ))}

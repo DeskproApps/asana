@@ -15,8 +15,8 @@ import type { TicketContext } from "../types";
 import type { Task, Tag } from "../services/asana/types";
 
 type UseDeskproTag = () => {
-  addDeskproTag: (task: Task) => Promise<void|{ data: void }>,
-  removeDeskproTag: (task: Task) => Promise<void|{ data: void }>,
+  addDeskproTag: (task: Task) => Promise<void|{ data: { tag: Tag["gid"] } }>,
+  removeDeskproTag: (task: Task) => Promise<void|{ data: { tag: Tag["gid"] } }>,
 };
 
 const useDeskproTag: UseDeskproTag = () => {
@@ -40,7 +40,7 @@ const useDeskproTag: UseDeskproTag = () => {
           ? Promise.resolve({ data: deskproTag })
           : createTagService(client, task.workspace.gid, DESKPRO_TAG as Tag)
       })
-      .then<void|{ data: void }>((data) => {
+      .then<void|{ data: { tag: Tag["gid"] } }>((data) => {
         const tagId = get(data, ["data", "gid"]);
         return tagId ? addTagToTaskService(client, task.gid, tagId) : Promise.resolve();
       })

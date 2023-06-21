@@ -145,7 +145,6 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) =>
       <Label htmlFor="tags" label="Tags">
         <Select
           id="tags"
-          disabled={isEditMode}
           value={watch("tags")}
           showInternalSearch
           options={tagOptions}

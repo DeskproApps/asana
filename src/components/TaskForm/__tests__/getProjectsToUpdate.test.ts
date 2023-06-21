@@ -8,40 +8,40 @@ describe("TaskForm", () => {
     test("should return empty add and remove", () => {
       const projects = ["project001", "project002"];
       expect(getProjectsToUpdate(task as never, { projects } as never)).toEqual({
-        addProjects: [],
-        removeProjects: [],
+        addIds: [],
+        removeIds: [],
       });
     });
 
     test("should return empty add", () => {
       const projects = ["project001"];
       expect(getProjectsToUpdate(task as never, { projects } as never)).toEqual({
-        addProjects: [],
-        removeProjects: ["project002"],
+        addIds: [],
+        removeIds: ["project002"],
       });
     });
 
     test("should return empty remove", () => {
       const projects = ["project001", "project002", "project003"];
       expect(getProjectsToUpdate(task as never, { projects } as never)).toEqual({
-        addProjects: ["project003"],
-        removeProjects: [],
+        addIds: ["project003"],
+        removeIds: [],
       });
     });
 
     test("should return projects to update", () => {
       const projects = ["project002", "project003"];
       expect(getProjectsToUpdate(task as never, { projects } as never)).toEqual({
-        addProjects: ["project003"],
-        removeProjects: ["project001"],
+        addIds: ["project003"],
+        removeIds: ["project001"],
       });
     });
 
     test("should return full updated projects", () => {
       const projects = ["project001", "project002", "project003"];
       expect(getProjectsToUpdate({ projects: [] } as never, { projects } as never)).toEqual({
-        addProjects: projects,
-        removeProjects: [],
+        addIds: projects,
+        removeIds: [],
       });
     });
   });
