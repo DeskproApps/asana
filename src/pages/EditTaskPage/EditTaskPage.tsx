@@ -12,9 +12,13 @@ import {
 import { useSetTitle, useAsyncError } from "../../hooks";
 import { useTaskDeps } from "./hooks";
 import { setEntityService } from "../../services/deskpro";
-import { updateTaskService } from "../../services/asana";
+import {
+  updateTaskService,
+  updateTaskTagsService,
+  updateTaskProjectsService,
+} from "../../services/asana";
 import { getEntityMetadata } from "../../utils";
-import { getTaskValues } from "../../components/TaskForm";
+import { getTaskValues, getProjectsToUpdate, getTagsToUpdate, } from "../../components/TaskForm";
 import { EditTask } from "../../components";
 import type { FC } from "react";
 import type { Maybe, TicketContext } from "../../types";
@@ -47,7 +51,11 @@ const EditTaskPage: FC = () => {
     setError(null);
 
     return updateTaskService(client, taskId, getTaskValues(values, true))
-      .then(({ data: task }) => setEntityService(client, ticketId, task.gid, getEntityMetadata(task)))
+      .then(({ data: task }) => Promise.all([
+        setEntityService(client, ticketId, task.gid, getEntityMetadata(task)),
+        ...updateTaskTagsService(client, taskId, getTagsToUpdate(task, values)),
+        ...updateTaskProjectsService(client, taskId, getProjectsToUpdate(task, values)),
+      ]))
       .then(() => navigate(`/view/${taskId}`))
       .catch((err) => {
         const errors = map(get(err, ["data", "errors"]), "message").filter(Boolean);

@@ -1,18 +1,19 @@
 import map from "lodash/map";
 import get from "lodash/get";
 import size from "lodash/size";
+import difference from "lodash/difference";
 import parse from "date-fns/parse";
 import { z } from "zod";
 import { getOption } from "../../utils";
 import { format } from "../../utils/date";
 import { DATE_ON_FORMAT } from "../../constants";
 import type { DateOn } from "../../types";
-import type { Task } from "../../services/asana/types";
+import type { Project, Tag, Task } from "../../services/asana/types";
 import type { FormValidationSchema, TaskValues } from "./types";
 
 const validationSchema = z.object({
   workspace: z.string().nonempty(),
-  project: z.string().optional(),
+  projects: z.array(z.string()),
   name: z.string().nonempty(),
   description: z.string().optional(),
   status: z.string().nonempty(),
@@ -22,11 +23,12 @@ const validationSchema = z.object({
 });
 
 const getInitValues = (task?: Task): FormValidationSchema => {
+  const projects = get(task, ["projects"], []) || [];
   const dueDate = get(task, ["due_on"], null);
 
   return {
     workspace: get(task, ["workspace", "gid"], ""),
-    project: get(task, ["projects", 0, "gid"], ""),
+    projects: map(projects, "gid"),
     name: get(task, ["name"], ""),
     description: get(task, ["notes"], ""),
     status: get(task, ["completed"]) ? "completed" : "not_completed",
@@ -40,11 +42,11 @@ const getTaskValues = (values: FormValidationSchema, isEditMode?: boolean): Task
   const description = get(values, ["description"], "");
   const assignee = get(values, ["assignee"]);
   const dueDate = get(values, ["dueDate"]);
-  const project = get(values, ["project"]);
+  const projects = get(values, ["projects"]);
 
   return {
     workspace: values.workspace,
-    ...((isEditMode || !project) ? {} : { projects: [project] }),
+    ...((isEditMode || !projects) ? {} : { projects }),
     name: values.name,
     completed: values.status === "completed",
     ...(!description ? {} : { notes: description }),
@@ -54,6 +56,24 @@ const getTaskValues = (values: FormValidationSchema, isEditMode?: boolean): Task
   };
 };
 
+const getEntitiesToUpdate = <Entity, EntityId>(
+  entity: "projects"|"tags",
+) => (
+  task: Task, values: FormValidationSchema,
+): { addIds: Array<EntityId>, removeIds: Array<EntityId> } => {
+  const oldProjects = map<Entity>(get(task, [entity as never], []) || [], "gid");
+  const updateProjects = get(values, [entity], []) || [];
+
+  return {
+    addIds: difference(updateProjects, oldProjects),
+    removeIds: difference(oldProjects, updateProjects),
+  };
+};
+
+const getProjectsToUpdate = getEntitiesToUpdate<Project, Project["gid"]>("projects");
+
+const getTagsToUpdate = getEntitiesToUpdate<Tag, Tag["gid"]>("tags");
+
 const getStatusOptions = () => [
   getOption("completed", "Completed"),
   getOption("not_completed", "Not completed"),
@@ -62,6 +82,8 @@ const getStatusOptions = () => [
 export {
   getInitValues,
   getTaskValues,
+  getTagsToUpdate,
   validationSchema,
   getStatusOptions,
+  getProjectsToUpdate,
 };

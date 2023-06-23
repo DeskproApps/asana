@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import has from "lodash/has";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,9 +35,6 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) =>
     workspaceOptions,
   } = useFormDeps(workspaceId);
 
-  // reset project if workspace changed
-  useEffect(() => setValue("project", ""), [workspaceId, setValue]);
-
   if (isLoading) {
     return (
       <LoadingSpinner/>
@@ -57,20 +53,35 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) =>
           options={workspaceOptions}
           noFoundText="No workspace(s) found"
           error={has(errors, ["workspace", "message"])}
-          onChange={(option) => setValue("workspace", option.value)}
+          onChange={(option) => {
+            setValue("workspace", option.value);
+            setValue("projects", []);
+          }}
         />
       </Label>
 
-      <Label htmlFor="project" label="Project">
+      <Label htmlFor="projects" label="Projects">
         <Select
-          id="project"
-          disabled={isEditMode}
-          value={watch("project")}
+          id="projects"
           showInternalSearch
+          closeOnSelect={false}
+          value={watch("projects")}
           options={projectOptions}
           noFoundText="No project(s) found"
-          error={has(errors, ["project", "message"])}
-          onChange={(option) => setValue("project", option.value)}
+          error={has(errors, ["projects", "message"])}
+          onChange={(o) => {
+            const projects = watch("projects");
+
+            if (o.value) {
+              const selectedProjects = Array.isArray(projects) ? projects : [];
+              const newValue = selectedProjects.includes(o.value)
+                ? selectedProjects.filter((project) => project !== o.value)
+                : [...selectedProjects, o.value];
+
+              setValue("projects", newValue);
+            }
+
+          }}
         />
       </Label>
 
@@ -134,7 +145,6 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) =>
       <Label htmlFor="tags" label="Tags">
         <Select
           id="tags"
-          disabled={isEditMode}
           value={watch("tags")}
           showInternalSearch
           options={tagOptions}

@@ -2,7 +2,7 @@ import { getTaskValues } from "../utils";
 
 const values = {
   workspace: "1201873797723140",
-  project: "1204600346922820",
+  projects: ["1204600346922820"],
   name: "Task from DP",
   description: "this is description!!!",
   status: "completed",
@@ -16,7 +16,7 @@ describe("TaskForm", () => {
     test("should return required values", () => {
       expect(getTaskValues({
         workspace: "w001",
-        project: "p001",
+        projects: ["p001"],
         name: "Task from DP",
         status: "completed",
       } as never)).toEqual({
