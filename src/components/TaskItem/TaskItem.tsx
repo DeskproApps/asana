@@ -44,7 +44,7 @@ const TaskItem: FC<Props> = ({ task, onNavigateToTask }) => {
       <TwoProperties
         leftLabel="Workspace"
         leftText={get(task, ["workspace", "name"], "-")}
-        rightLabel="Project"
+        rightLabel="Projects"
         rightText={getProjectName(task)}
       />
       <TwoProperties

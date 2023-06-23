@@ -45,7 +45,7 @@ const Details: FC<Props> = ({ task, attachments }) => {
           text={get(task, ["workspace", "name"], "-")}
         />
         <Property
-          label="Proect"
+          label="Projects"
           text={getProjectName(task)}
         />
         <Property

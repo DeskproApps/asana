@@ -60,7 +60,7 @@ const TaskForm: FC<Props> = ({ onSubmit, onCancel, isEditMode, error, task }) =>
         />
       </Label>
 
-      <Label htmlFor="projects" label="Project">
+      <Label htmlFor="projects" label="Projects">
         <Select
           id="projects"
           showInternalSearch
