@@ -44,7 +44,7 @@ const useTasks: UseTasks = (workspaceId, projectId) => {
   );
 
   return {
-    isLoading: [workspaces, projects].some(({ isFetching }) => isFetching),
+    isLoading: [workspaces, projects, tasks].some(({ isLoading }) => isLoading),
     workspaces: get(workspaces, ["data", "data"], []) || [],
     projects: get(projects, ["data", "data"], []) || [],
     tasks: get(tasks, ["data", "data"], []) || [],

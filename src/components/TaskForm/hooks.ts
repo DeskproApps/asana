@@ -1,6 +1,6 @@
 import { createElement } from "react";
 import get from "lodash/get";
-import { useQueryWithClient } from "@deskpro/app-sdk";
+import { useQueryWithClient, Member } from "@deskpro/app-sdk";
 import { QueryKey } from "../../query";
 import {
   getTagsService,
@@ -9,7 +9,7 @@ import {
   getWorkspacesService,
 } from "../../services/asana";
 import { getOption } from "../../utils";
-import { Tag, Member } from "../common";
+import { Tag } from "../common";
 import type { Option } from "../../types";
 import type {
   Project,

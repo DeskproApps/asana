@@ -5,7 +5,7 @@ import { proxyFetch, adminGenericProxyFetch } from "@deskpro/app-sdk";
 import { BASE_URL, placeholders } from "../../constants";
 import { getQueryParams } from "../../utils";
 import { AsanaError } from "./AsanaError";
-import type { Request } from "../../types";
+import type { Request, FetchOptions } from "../../types";
 
 const baseRequest: Request = async (client, {
   url,
@@ -23,7 +23,7 @@ const baseRequest: Request = async (client, {
   const accessTokens = get(settings, ["access_tokens"], placeholders.ACCESS_TOKEN);
 
   const requestUrl = `${baseUrl}${params}`;
-  const options: RequestInit = {
+  const options: FetchOptions = {
     method,
     headers: {
       "Authorization": `Bearer ${accessTokens}`,
