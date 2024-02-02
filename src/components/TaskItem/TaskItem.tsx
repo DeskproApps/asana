@@ -2,16 +2,13 @@ import { useCallback, useMemo } from "react";
 import get from "lodash/get";
 import size from "lodash/size";
 import { P5, Stack } from "@deskpro/deskpro-ui";
-import { Title,  } from "@deskpro/app-sdk";
+import { Title, Link, Property, TwoProperties } from "@deskpro/app-sdk";
 import { getTaskDueDate, getProjectName } from "../../utils";
 import {
   Tag,
-  Link,
   Status,
-  Property,
   AsanaLogo,
   OverflowText,
-  TwoProperties,
   DeskproTickets,
 } from "../common";
 import type { FC, MouseEvent } from "react";
@@ -68,7 +65,7 @@ const TaskItem: FC<Props> = ({ task, onNavigateToTask }) => {
       <Property
         label="Tags"
         text={(
-          <Stack gap={6}>
+          <Stack gap={6} wrap="wrap">
             {!size(tags) ? "-" : tags.map((tag) => (
               <Tag key={tag.gid} {...tag} />
             ))}

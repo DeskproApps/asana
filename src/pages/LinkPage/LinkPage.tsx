@@ -19,7 +19,7 @@ import {
 import { searchTasks, getEntityMetadata } from "../../utils";
 import { useTasks } from "./hooks";
 import { LinkTasks } from "../../components";
-import type { FC, ChangeEvent } from "react";
+import type { FC } from "react";
 import type { TicketContext } from "../../types";
 import type { Workspace, Project, Task } from "../../services/asana/types";
 
@@ -32,27 +32,15 @@ const LinkPage: FC = () => {
   const { addDeskproTag } = useDeskproTag();
   const { asyncErrorHandler } = useAsyncError();
 
-  const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<Workspace["gid"]|null>(null);
-  const [selectedProjectId, setSelectedProjectId] = useState<Project["gid"]|null>(null);
+  const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<Workspace["gid"]|"">("");
+  const [selectedProjectId, setSelectedProjectId] = useState<Project["gid"]|"">("");
   const [selectedTasks, setSelectedTasks] = useState<Task[]>([]);
   const [search, setSearch] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
   const { isLoading, workspaces, projects, tasks } = useTasks(selectedWorkspaceId, selectedProjectId);
-
   const ticketId = get(context, ["data", "ticket", "id"]);
 
-  const onChangeSearch = useCallback(({ target: { value: q }}: ChangeEvent<HTMLInputElement>) => {
-    setSearch(q);
-  }, []);
-
-  const onClearSearch = useCallback(() => {
-    setSearch("");
-  }, []);
-
-  const onCancel = useCallback(() => {
-    navigate("/home");
-  }, [navigate]);
+  const onCancel = useCallback(() => navigate("/home"), [navigate]);
 
   const onChangeSelectedTask = useCallback((task: Task) => {
     let newSelectedTasks = cloneDeep(selectedTasks);
@@ -102,20 +90,18 @@ const LinkPage: FC = () => {
 
   // At the beginning, we choose the first workspace
   useEffect(() => {
-    setSelectedWorkspaceId(get(workspaces, [0, "gid"], null));
-    setSelectedProjectId(null);
+    setSelectedWorkspaceId(get(workspaces, [0, "gid"], ""));
+    setSelectedProjectId("");
   }, [workspaces]);
 
   // At the beginning, we choose the first project
   useEffect(() => {
-    setSelectedProjectId(get(projects, [0, "gid"], null));
+    setSelectedProjectId(get(projects, [0, "gid"], ""));
   }, [projects]);
 
   return (
     <LinkTasks
-      search={search}
-      onChangeSearch={onChangeSearch}
-      onClearSearch={onClearSearch}
+      onChangeSearch={setSearch}
       workspaces={workspaces}
       selectedWorkspaceId={selectedWorkspaceId}
       onChangeWorkspace={setSelectedWorkspaceId}

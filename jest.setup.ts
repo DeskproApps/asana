@@ -1,12 +1,13 @@
 import "regenerator-runtime/runtime";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
+import "intersection-observer";
 import { useQuery } from "@tanstack/react-query";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { TextDecoder, TextEncoder } from "util";
 import React from "react";
 import { lightTheme } from "@deskpro/deskpro-ui";
-import { mockClient } from "./testing";
+import { mockClient, mockContext } from "./testing";
 import type { IDeskproClient } from "@deskpro/app-sdk";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,43 +21,24 @@ global.TextDecoder = TextDecoder;
 //@ts-ignore
 global.React = React;
 
-const deskproAppEventsObj = {
-  type: "ticket",
-  settings: {},
-  data: {
-    ticket: { id: "215", subject: "Big ticket", permalinkUrl: "https://permalink.url" },
-    app: {},
-    env: {},
-    currentAgent: {},
-  },
-};
-
 jest.mock("@deskpro/app-sdk", () => ({
   ...jest.requireActual("@deskpro/app-sdk"),
   useDeskproAppClient: () => ({ client: mockClient }),
-  useDeskproLatestAppContext: () => ({
-    context: deskproAppEventsObj,
-  }),
+  useDeskproLatestAppContext: () => ({ context: mockContext }),
   useDeskproAppEvents: (
     hooks: { [key: string]: (param: Record<string, unknown>) => void },
     deps: [] = []
   ) => {
     React.useEffect(() => {
-      !!hooks.onChange && hooks.onChange(deskproAppEventsObj);
-      !!hooks.onShow && hooks.onShow(deskproAppEventsObj);
-      !!hooks.onReady && hooks.onReady(deskproAppEventsObj);
-      !!hooks.onAdminSettingsChange && hooks.onAdminSettingsChange(deskproAppEventsObj.settings);
+      !!hooks.onChange && hooks.onChange(mockContext);
+      !!hooks.onShow && hooks.onShow(mockContext);
+      !!hooks.onReady && hooks.onReady(mockContext);
+      !!hooks.onAdminSettingsChange && hooks.onAdminSettingsChange(mockContext.settings);
       /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, deps);
   },
-  useInitialisedDeskproAppClient: (
-    callback: (param: Record<string, unknown>) => void
-  ) => {
-    callback({
-      registerElement: () => {},
-      deregisterElement: () => {},
-      setTitle: () => {},
-    });
+  useInitialisedDeskproAppClient: (callback: (param: typeof mockClient) => void) => {
+    callback(mockClient);
   },
   useDeskproAppTheme: () => ({ theme: lightTheme }),
   proxyFetch: async () => fetch,

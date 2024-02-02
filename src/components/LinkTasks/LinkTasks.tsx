@@ -1,29 +1,21 @@
-import { HorizontalDivider } from "@deskpro/app-sdk";
+import { Search, HorizontalDivider } from "@deskpro/app-sdk";
 import { getOption } from "../../utils";
-import {
-  Search,
-  Container,
-  Navigation,
-} from "../common";
+import { Container, Navigation } from "../common";
 import { Workspaces } from "./Workspace";
 import { Project } from "./Project";
 import { Buttons } from "./Buttons";
 import { Tasks } from "./Tasks";
 import type { FC, Dispatch } from "react";
-import type { Maybe } from "../../types";
-import type { Props as SearchProps } from "../../components/common/Search";
 import type { Workspace, Project as ProjectType, Task } from "../../services/asana/types";
 
 type Props = {
   tasks: Task[],
-  search: SearchProps["value"],
-  onChangeSearch: SearchProps["onChange"],
-  onClearSearch: SearchProps["onClear"],
+  onChangeSearch: (q: string) => void,
   workspaces: Workspace[],
-  selectedWorkspaceId: Maybe<Workspace["gid"]>,
+  selectedWorkspaceId: Workspace["gid"],
   onChangeWorkspace: Dispatch<Workspace["gid"]>,
   projects: ProjectType[],
-  selectedProjectId: Maybe<ProjectType["gid"]>,
+  selectedProjectId: ProjectType["gid"],
   onChangeProject: Dispatch<ProjectType["gid"]>,
   onCancel: () => void,
   selectedTasks: Task[],
@@ -36,14 +28,12 @@ type Props = {
 
 const LinkTasks: FC<Props> = ({
   tasks,
-  search,
-  projects,
   onCancel,
+  projects,
   isLoading,
   workspaces,
   onLinkTasks,
   isSubmitting,
-  onClearSearch,
   selectedTasks,
   onChangeSearch,
   onChangeProject,
@@ -57,20 +47,16 @@ const LinkTasks: FC<Props> = ({
     <>
       <Container>
         <Navigation selected="one" onTwoNavigate={onNavigateToCreateTask}/>
-        <Search
-          value={search}
-          onChange={onChangeSearch}
-          onClear={onClearSearch}
-        />
+        <Search onChange={onChangeSearch} />
         <Workspaces
           value={selectedWorkspaceId}
           options={workspaces.map(({ gid, name }) => getOption(gid, name))}
-          onChange={(o)=> onChangeWorkspace(o.value)}
+          onChange={onChangeWorkspace}
         />
         <Project
           value={selectedProjectId}
           options={projects.map(({ gid, name }) => getOption(gid, name))}
-          onChange={(o) => onChangeProject(o.value)}
+          onChange={onChangeProject}
         />
         <Buttons
           onCancel={onCancel}

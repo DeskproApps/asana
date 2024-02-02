@@ -1,12 +1,13 @@
-import { Label, Select } from "../common";
+import { Select } from "@deskpro/app-sdk";
+import { Label } from "../common";
 import type { FC } from "react";
-import type { Option, Maybe } from "../../types";
+import type { Option } from "../../types";
 import type { Project as ProjectType } from "../../services/asana/types";
 
 type Props = {
-  value: Maybe<ProjectType["gid"]>,
+  value: ProjectType["gid"],
   options: Array<Option<ProjectType["gid"]>>,
-  onChange: (projectId: Option<ProjectType["gid"]>) => void,
+  onChange: (projectId: ProjectType["gid"]) => void,
 };
 
 const Project: FC<Props> = ({
@@ -20,9 +21,8 @@ const Project: FC<Props> = ({
         id="project"
         value={value}
         showInternalSearch
-        onChange={onChange}
+        onChange={onChange as () => void}
         options={options}
-        noFoundText="No project(s) found"
       />
     </Label>
   );

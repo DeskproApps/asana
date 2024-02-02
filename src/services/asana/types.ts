@@ -1,5 +1,7 @@
 import type { DateAt, DateOn } from "../../types";
 
+export type Response<T> = Promise<{ data: T }>;
+
 export type AsanaAPIError = {
   error: {
     code: number,
