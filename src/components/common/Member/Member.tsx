@@ -1,7 +1,7 @@
 import React from "react";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "@deskpro/deskpro-ui";
-import { P5, Stack } from "@deskpro/app-sdk";
+import { P5, Stack } from "@deskpro/deskpro-ui";
 import type { FC } from "react";
 import type { AvatarProps, ImageAvatarProps, AnyIcon } from "@deskpro/deskpro-ui";
 import type { Maybe } from "../../../types";

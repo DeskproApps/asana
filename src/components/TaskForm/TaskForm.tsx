@@ -1,15 +1,15 @@
 import has from "lodash/has";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@deskpro/deskpro-ui";
-import { Stack, LoadingSpinner } from "@deskpro/app-sdk";
+import { Stack, Input } from "@deskpro/deskpro-ui";
+import { DateInput, LoadingSpinner } from "@deskpro/app-sdk";
 import { useFormDeps } from "./hooks";
 import {
   getInitValues,
   validationSchema,
   getStatusOptions,
 } from "./utils";
-import { DateInput, Button, Label, Select, TextArea } from "../common";
+import { Button, Label, TextArea, Select } from "../common";
 import { ErrorBlock } from "../Error";
 import type { FC } from "react";
 import type { Workspace } from "../../services/asana/types";
