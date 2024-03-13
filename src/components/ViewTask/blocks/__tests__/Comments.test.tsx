@@ -46,7 +46,7 @@ describe("ViewTask", () => {
     test("render", async () => {
       const { findByText } = render((
         <Comments comments={mockComments as never} onNavigateToAddComment={jest.fn()} />
-      ), { wrappers: { theme: true } });
+      ), { wrappers: { appSdk: true } });
 
       expect(await findByText(/Comments \(2\)/i)).toBeInTheDocument();
       expect(await findByText(/Comment one/i)).toBeInTheDocument();
@@ -56,7 +56,7 @@ describe("ViewTask", () => {
     test("empty comments", async () => {
       const { findByText } = render((
         <Comments comments={[]} onNavigateToAddComment={jest.fn()} />
-      ), { wrappers: { theme: true } });
+      ), { wrappers: { appSdk: true } });
 
       expect(await findByText(/Comments \(0\)/i)).toBeInTheDocument();
     });
@@ -66,7 +66,7 @@ describe("ViewTask", () => {
 
       const { findByRole } = render((
         <Comments comments={[]} onNavigateToAddComment={mockOnNavigateToAddComment} />
-      ), { wrappers: { theme: true } });
+      ), { wrappers: { appSdk: true } });
 
       const navigateButton = await findByRole("button");
 

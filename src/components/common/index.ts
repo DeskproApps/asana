@@ -15,6 +15,5 @@ export { Link } from "./Link";
 export { Comment } from "./Comment";
 export { OverflowText } from "./OverflowText";
 export { TextArea } from "./TextArea";
-export { DateInput } from "./DateInput";
 export { Navigation } from "./Navigation";
 export { Attach } from "./Attach";
