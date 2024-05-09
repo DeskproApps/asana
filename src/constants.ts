@@ -13,6 +13,8 @@ export const APP_PREFIX = "asana";
 
 export const ENTITY = "linkedAsanaTask";
 
+export const DEFAULT_ERROR = "There was an error!";
+
 export const placeholders = {
   ACCESS_TOKEN: "__access_tokens__",
 };

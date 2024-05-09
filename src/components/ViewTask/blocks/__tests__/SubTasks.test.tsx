@@ -1,4 +1,4 @@
-import { cleanup } from "@testing-library/react";
+import { cleanup, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SubTasks } from "../SubTasks";
 import { render, mockSubtasks } from "../../../../../testing";
@@ -20,16 +20,19 @@ describe("ViewTask", () => {
     });
 
     test("should trigger update subtask status", async () => {
-      const onMockCompleteSubtask = jest.fn();
+      const onMockCompleteSubtask = jest.fn().mockResolvedValue(null);
+
       const { container } = render((
         <SubTasks subTasks={ mockSubtasks.data as never} onCompleteSubtask={onMockCompleteSubtask} />
       ), { wrappers: { theme: true } });
 
       const checkbox = container.querySelector("input[id=subtask001]");
 
-      await userEvent.click(checkbox as Element);
+      await act(async () => await userEvent.click(checkbox as Element));
 
-      expect(onMockCompleteSubtask).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(onMockCompleteSubtask).toHaveBeenCalled();
+      });
     });
   });
 });

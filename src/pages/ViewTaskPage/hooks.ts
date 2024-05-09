@@ -51,7 +51,7 @@ const useTask: UseTask = (taskId) => {
   );
 
   return {
-    isLoading: [task, subTasks, comments].some(({ isFetching }) => isFetching),
+    isLoading: Boolean(taskId) && [task, subTasks, comments].some(({ isLoading }) => isLoading),
     task: get(task, ["data", "data"]) || null,
     subTasks: get(subTasks, ["data", "data"], []) || [],
     comments: (get(comments, ["data"], []) || []) as Story[],
