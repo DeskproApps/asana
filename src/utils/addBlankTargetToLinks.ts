@@ -1,4 +1,8 @@
-export const addBlankTargetToLinks = (htmlString: string): string => {
+export const addBlankTargetToLinks = (htmlString?: string): string => {
+  if (!htmlString) {
+    return "-";
+  }
+
   if (typeof DOMParser === 'undefined') {
     return htmlString;
   }

@@ -4,10 +4,10 @@ import size from "lodash/size";
 import replace from "lodash/fp/replace";
 import flow from "lodash/fp/flow";
 import { faFile } from "@fortawesome/free-regular-svg-icons";
-import { P5, Stack, AttachmentTag } from "@deskpro/deskpro-ui";
+import { Stack, AttachmentTag } from "@deskpro/deskpro-ui";
 import { Title, HorizontalDivider } from "@deskpro/app-sdk";
 import { format } from "../../../utils/date";
-import { getProjectName, getTaskDueDate, addBlankTargetToLinks } from "../../../utils";
+import { getProjectName, getTaskDueDate } from "../../../utils";
 import {
   Tag,
   Status,
@@ -15,6 +15,7 @@ import {
   Property,
   AsanaLogo,
   Container,
+  DPNormalize,
 } from "../../common";
 import type { FC } from "react";
 import type { AnyIcon } from "@deskpro/deskpro-ui";
@@ -60,12 +61,7 @@ const Details: FC<Props> = ({ task, attachments }) => {
         <Property
           label="Description"
           text={(
-            <P5
-              dangerouslySetInnerHTML={{
-                __html: description ? addBlankTargetToLinks(description) : "-"
-              }}
-              style={{ whiteSpace: "pre-wrap" }}
-            />
+            <DPNormalize text={description} />
           )}
         />
         <Property

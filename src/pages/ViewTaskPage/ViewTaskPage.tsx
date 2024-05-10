@@ -1,12 +1,11 @@
 import { useCallback } from "react";
-import noop from "lodash/noop";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   LoadingSpinner,
   useDeskproElements,
   useDeskproAppClient,
 } from "@deskpro/app-sdk";
-import { useSetTitle } from "../../hooks";
+import { useSetTitle, useAsyncError } from "../../hooks";
 import { useTask } from "./hooks";
 import { queryClient } from "../../query";
 import { updateTaskService } from "../../services/asana";
@@ -18,6 +17,7 @@ const ViewTaskPage: FC = () => {
   const navigate = useNavigate();
   const { taskId } = useParams();
   const { client } = useDeskproAppClient();
+  const { asyncErrorHandler } = useAsyncError();
   const { isLoading, task, subTasks, comments, attachments } = useTask(taskId);
 
   const onCompleteSubtask = useCallback((subtaskId: Task["gid"], completed: boolean) => {
@@ -27,8 +27,8 @@ const ViewTaskPage: FC = () => {
 
     return updateTaskService(client, subtaskId, { completed })
       .then(() => queryClient.invalidateQueries())
-      .catch(noop);
-  }, [client]);
+      .catch(asyncErrorHandler);
+  }, [client, asyncErrorHandler]);
 
   const onNavigateToAddComment = useCallback(() => {
     navigate(`/view/${taskId}/comments/new`);

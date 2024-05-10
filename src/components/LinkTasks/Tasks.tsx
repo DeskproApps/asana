@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import size from "lodash/size";
 import { Checkbox } from "@deskpro/deskpro-ui";
 import { HorizontalDivider, LoadingSpinner } from "@deskpro/app-sdk";
-import { NoFound, Card, CardBody, CardMedia } from "../common";
+import { NoFound, Card } from "../common";
 import { TaskItem } from "../TaskItem";
 import type { Task } from "../../services/asana/types";
 
@@ -32,17 +32,17 @@ const Tasks: FC<Props> = ({
           : tasks.map((task) => (
             <Fragment key={task.gid}>
               <Card>
-                <CardMedia>
+                <Card.Media>
                   <Checkbox
                     size={12}
                     checked={selectedTasks.some(({ gid }) => task.gid === gid)}
                     onChange={() => onChangeSelectedTask(task)}
                     containerStyle={{ marginTop: 4 }}
                   />
-                </CardMedia>
-                <CardBody>
+                </Card.Media>
+                <Card.Body>
                   <TaskItem task={task} onNavigateToTask={() => onChangeSelectedTask(task)} />
-                </CardBody>
+                </Card.Body>
               </Card>
               <HorizontalDivider style={{ marginBottom: 10 }} />
             </Fragment>
