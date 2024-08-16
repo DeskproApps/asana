@@ -2,7 +2,7 @@
 
 # Asana App
 
-View your Asana tasks linked with Deskpro tickets to streamline communication with users.
+View your [Asana](https://asana.com/) tasks linked with [Deskpro](https://www.deskpro.com/) tickets to streamline communication with users.
 
 ![Asana App - Deskpro](./docs/assets/asana-screenshot.png)
 
