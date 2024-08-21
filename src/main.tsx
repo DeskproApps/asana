@@ -24,8 +24,8 @@ TimeAgo.addDefaultLocale(en);
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render((
   <React.StrictMode>
-    <DeskproAppProvider>
-      <Scrollbar style={{ height: "100%", width: "100%" }}>
+    <Scrollbar style={{ height: "100%", width: "100%" }}>
+      <DeskproAppProvider>
         <HashRouter>
           <QueryClientProvider client={queryClient}>
             <Suspense fallback={<LoadingSpinner />}>
@@ -37,7 +37,7 @@ root.render((
             </Suspense>
           </QueryClientProvider>
         </HashRouter>
-      </Scrollbar>
-    </DeskproAppProvider>
+      </DeskproAppProvider>
+    </Scrollbar>
   </React.StrictMode>
 ));
