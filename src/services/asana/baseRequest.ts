@@ -1,7 +1,7 @@
 import has from "lodash/has";
 import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
-import { proxyFetch, adminGenericProxyFetch } from "@deskpro/app-sdk";
+import { proxyFetch, adminGenericProxyFetch, V2ProxyRequestInit } from "@deskpro/app-sdk";
 import { BASE_URL, placeholders } from "../../constants";
 import { getQueryParams } from "../../utils";
 import { AsanaError } from "./AsanaError";
@@ -23,7 +23,7 @@ const baseRequest: Request = async (client, {
   const accessTokens = get(settings, ["access_tokens"], placeholders.ACCESS_TOKEN);
 
   const requestUrl = `${baseUrl}${params}`;
-  const options: RequestInit = {
+  const options: V2ProxyRequestInit = {
     method,
     headers: {
       "Authorization": `Bearer ${accessTokens}`,
