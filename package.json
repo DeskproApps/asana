@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "start": "vite",
-    "build": "+ ./dist/* && tsc && vite build",
+    "build": "rm -rf ./dist/* && tsc && vite build",
     "build:package": "pnpm run build && pnpm run package",
     "package": "rm -rf ./build/ && node ./bin/package.js",
     "serve": "vite preview",
