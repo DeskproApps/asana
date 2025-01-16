@@ -69,7 +69,7 @@ const LinkPage: FC = () => {
   const onNavigateToCreateTask = useCallback(() => navigate("/create"), [navigate]);
 
   const onLinkTasks = useCallback(() => {
-    if (!client || !size(selectedTasks)) {
+    if (!client || !size(selectedTasks) || !ticketId) {
       return;
     }
 

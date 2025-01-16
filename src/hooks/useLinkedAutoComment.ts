@@ -42,7 +42,7 @@ const useLinkedAutoComment = (): Result => {
   }, [client, isEnable, ticketId, permalink]);
 
   const addUnlinkComment = useCallback((taskId: Task["gid"]) => {
-    if (!client || !isEnable) {
+    if (!client || !isEnable || !ticketId) {
       return Promise.resolve();
     }
 
