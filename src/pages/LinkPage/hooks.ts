@@ -46,7 +46,7 @@ const useTasks: UseTasks = (workspaceId, projectId) => {
     isLoading: [workspaces, projects, tasks].some(({ isFetching }) => isFetching),
     workspaces: workspaces.data?.data ?? [],
     projects: projects.data?.data ?? [],
-    tasks: tasks.data?.data as Task[] ?? [],
+    tasks: tasks.data?.data ?? [],
   };
 };
 
