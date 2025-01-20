@@ -51,11 +51,11 @@ const useTask: UseTask = (taskId) => {
   );
 
   return {
-    isLoading: Boolean(taskId) && [task, subTasks, comments].some(({ isLoading }) => isLoading),
-    task: get(task, ["data", "data"]) || null,
-    subTasks: get(subTasks, ["data", "data"], []) || [],
-    comments: (get(comments, ["data"], []) || []) as Story[],
-    attachments: get(attachments, ["data", "data"], []) || [],
+    isLoading: Boolean(taskId) && [task, subTasks, comments, attachments].some(({ isLoading }) => isLoading),
+    task: task.data?.data ?? null,
+    subTasks: Array.isArray(subTasks.data?.data) ? subTasks.data?.data : [],
+    comments: comments.data ?? [],
+    attachments: attachments.data?.data ?? []
   };
 };
 

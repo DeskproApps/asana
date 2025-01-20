@@ -1,4 +1,3 @@
-import get from "lodash/get";
 import { useQueryWithClient } from "@deskpro/app-sdk";
 import { QueryKey } from "../../query";
 import {
@@ -44,10 +43,10 @@ const useTasks: UseTasks = (workspaceId, projectId) => {
   );
 
   return {
-    isLoading: [workspaces, projects].some(({ isFetching }) => isFetching),
-    workspaces: get(workspaces, ["data", "data"], []) || [],
-    projects: get(projects, ["data", "data"], []) || [],
-    tasks: get(tasks, ["data", "data"], []) || [],
+    isLoading: [workspaces, projects, tasks].some(({ isFetching }) => isFetching),
+    workspaces: workspaces.data?.data ?? [],
+    projects: projects.data?.data ?? [],
+    tasks: tasks.data?.data ?? [],
   };
 };
 

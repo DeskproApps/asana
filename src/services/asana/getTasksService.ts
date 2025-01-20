@@ -1,7 +1,7 @@
 import { baseRequest } from "./baseRequest";
 import { TASK_FIELDS } from "../../constants";
 import type { IDeskproClient } from "@deskpro/app-sdk";
-import type { Project } from "./types";
+import type { Project, Task } from "./types";
 
 const getTasksService = (
   client: IDeskproClient,
@@ -11,7 +11,7 @@ const getTasksService = (
     return Promise.resolve({ data: [] });
   }
 
-  return baseRequest(client, {
+  return baseRequest<Task[]>(client, {
     url: "/tasks",
     queryParams: {
       limit: "100",
