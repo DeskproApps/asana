@@ -2,7 +2,7 @@
   "name": "@deskpro-apps/asana",
   "title": "Asana",
   "description": "View your Asana tasks linked with Deskpro tickets to streamline communication with users.",
-  "version": "1.4.23",
+  "version": "1.4.24",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/asana",
   "scope": "agent",
   "isSingleInstall": false,
