@@ -20,6 +20,7 @@ import {
   LoadingAppPage,
   CreateTaskPage,
   CreateTaskCommentPage,
+  AdminCallbackPage
 } from "./pages";
 import type { FC } from "react";
 import type { EventPayload } from "./types";
@@ -67,6 +68,7 @@ const App: FC = () => {
     <>
       <Routes>
         <Route path="/admin/verify_settings" element={<VerifySettings/>} />
+        <Route path="/admin/callback" element={<AdminCallbackPage />} />
         <Route path="/link" element={<LinkPage/>} />
         <Route path="/home" element={<HomePage/>} />
         <Route path="/create" element={<CreateTaskPage/>} />
