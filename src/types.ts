@@ -37,7 +37,7 @@ export type Request = <T>(
 
 /** Deskpro types */
 export type Settings = {
-  access_tokens?: string,
+  access_token?: string,
   add_comment_when_linking?: boolean,
 };
 

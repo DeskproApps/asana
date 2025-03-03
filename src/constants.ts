@@ -16,7 +16,7 @@ export const ENTITY = "linkedAsanaTask";
 export const DEFAULT_ERROR = "There was an error!";
 
 export const placeholders = {
-  ACCESS_TOKEN: "__access_tokens__",
+  ACCESS_TOKEN: "__access_token__",
 };
 
 export const UNKNOWN_ERROR = "An error occurred";

@@ -16,11 +16,11 @@ const baseRequest: Request = async (client, {
   settings = {},
   headers: customHeaders,
 }) => {
-  const dpFetch = await (has(settings, ["access_tokens"]) ? adminGenericProxyFetch : proxyFetch)(client);
+  const dpFetch = await (has(settings, ["access_token"]) ? adminGenericProxyFetch : proxyFetch)(client);
 
   const baseUrl = rawUrl ? rawUrl : `${BASE_URL}${url}`;
   const params = getQueryParams(queryParams);
-  const accessTokens = get(settings, ["access_tokens"], placeholders.ACCESS_TOKEN);
+  const accessTokens = get(settings, ["access_token"], placeholders.ACCESS_TOKEN);
 
   const requestUrl = `${baseUrl}${params}`;
   const options: RequestInit = {

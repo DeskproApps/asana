@@ -17,21 +17,71 @@
     }
   },
   "settings": {
-    "access_tokens": {
-      "title": "Personal access token",
+    "use_deskpro_saas": {
+      "title": "One-Click Installation",
+      "type": "boolean",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "default": true,
+      "order": 1
+    },
+    "use_access_token": {
+      "title": "Use Access Token",
+      "type": "boolean",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "default": false,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 2
+    },
+    "access_token": {
+      "title": "Personal Access Token",
       "description": "Asana personal access token, please follow the app setup guide to get this",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": true,
-      "order": 10
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token == true",
+      "order": 3
     },
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": { "entrypoint": "#/admin/verify_settings" },
+      "options": {
+        "entrypoint": "#/admin/verify_settings",
+        "height": "30px"
+      },
       "isRequired": false,
       "isBackendOnly": true,
-      "order": 20
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token == true",
+      "order": 4
+    },
+    "client_id": {
+      "title": "Client ID",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 5
+    },
+    "client_secret": {
+      "title": "Client Secret",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 6
+    },
+    "callback_url": {
+      "title": "Callback URL",
+      "type": "app_embedded",
+      "options": {
+        "entrypoint": "#/admin/callback",
+        "height": "100px"
+      },
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 7
     },
     "add_comment_when_linking": {
       "title": "Leave a comment on the task in Asana when it is linked to a ticket in Deskpro",
@@ -40,7 +90,7 @@
       "default": true,
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 30
+      "order": 8
     },
     "default_comment_on_ticket_reply": {
       "title": "Ticket reply as comment",
@@ -48,7 +98,7 @@
       "type": "boolean",
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 40
+      "order": 9
     },
     "default_comment_on_ticket_note": {
       "title": "Ticket note as comment",
@@ -56,7 +106,7 @@
       "type": "boolean",
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 50
+      "order": 10
     },
     "add_deskpro_tag": {
       "title": "Add \"Deskpro\" label when creating or linking Task",
@@ -65,7 +115,7 @@
       "default": true,
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 60
+      "order": 11
     }
   },
   "proxy": {
