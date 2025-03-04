@@ -1,6 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
-import get from "lodash/get";
 import { P1, TSpan, Stack } from "@deskpro/deskpro-ui";
 import { useDeskproAppEvents, useDeskproAppClient } from "@deskpro/app-sdk";
 import { nbsp } from "../../constants";
