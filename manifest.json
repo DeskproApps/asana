@@ -8,6 +8,7 @@
   "isSingleInstall": false,
   "hasDevMode": true,
   "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
+  "secrets": "GgjP4mZE3LsYhei2uxbPCY3/ez+naLE1XC1GLS3h9TjrQ7giFVprYnusdN85JcB9Jni9qlr3E1e3CmgAm8qPt9R9KxMG5HOBafO4iZgxUsApt2yuIFmPYRax/YvpHkmukLrVZ6kYmRPqZeKm5ymHFKv822/ePL7VR+pUCnqsSc3JRuNUKA7HdOrBHSxWZ0//fbxjlvspn3lo2Yd1e4Qcf+DOIZiFdFLt9PSAL2c7Aw4lcgOsOK7/Y0wOc1DEGBHna7/RqCd8jArotTtEZZKhJY+aQnx6LE22ibE4/m+8tkV/ZAV9twTF/a68DEkdxPgZqa15Z4MFbmusv6JcWtEGXMdpz0wk85h28VMhTg/wUnCY1kAnf0dj5A+wxT1AylBeejkQDv3//KjZNru/d71JO9ajRC+xYxyA/m2T5b7XLQNcNDQl+b5oaRX/tL3pdmUX13iZdTlKY5cEs/mxhwzU1td+C9+hXS+c8RfYz9TQlizqI1MoeE1C8QNvNl+/c4wlygZ2KEBok/hi5/SCiRoYq6hhweuazP7ZanmQ+msLTqvVmj2q8XXuiEaMYkZByLDpNX3Kbzkbpz4A088gjemkIQSnWAom1gxxQ87X8j2/YGLtfcZoIobHSnV/QzIBBSGzXeB8ehXURoSZ/NBT3P9gQFRkDaP/aO/OuqckdXvW0pBIdQJ1OZapqEUot8FXwBlzCChzVNfxEwUxSD2wwmU0RMT/xeowTBATogN0bIiuylDiNVeXRjXK0nCyv2WQGhqcKGSocq1k4MKyd3meNiEYTRxmfC5PszrHe0nEz11XbzEGStLgS8yqjZzUJ4+NAeAwQpQb/9o+tdcSEQOFm7tKeJVny48CaS/s5oJXECmrQn8PGuM0g5cfCm/rxkTG7fTxQdBNjvHICnCBnP+7xuLWCEKIHxk7KeQVKvnEJzIza1I30DJqW4iblYHSSiE0aIJ2AsdLcex3hmgJn0YDDGpHu2+h3OBUkArQjsFBrIjZh0Q6NmI6JURIJmwaUuzYN565adaqPbeVniytHChkleKcj5M1poG0uormo48XZYyqHiI=",
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
   "entityAssociations": {
     "linkedAsanaTask": {
