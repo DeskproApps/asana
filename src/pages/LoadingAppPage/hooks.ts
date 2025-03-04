@@ -20,12 +20,14 @@ const useCheckIsAuth: UseCheckIsAuth = () => {
 
   const ticketId = get(context, ["data", "ticket", "id"]);
 
-  useInitialisedDeskproAppClient((client) => {
+  useInitialisedDeskproAppClient(async client => {
     if (!ticketId) {
       return;
     }
 
-    client.setUserState(IS_USING_OAUTH2, context?.settings.use_access_token !== true);
+    const isUsingOAuth2 = context?.settings.use_access_token !== true;
+
+    await client.setUserState(IS_USING_OAUTH2, isUsingOAuth2);
 
     getCurrentUserService(client)
       .then(() => getEntityListService(client, ticketId))

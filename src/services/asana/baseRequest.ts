@@ -14,14 +14,14 @@ const baseRequest: Request = async (client, {
   settings = {},
   headers: customHeaders,
 }) => {
-  const dpFetch = await (settings?.use_access_token ? adminGenericProxyFetch : proxyFetch)(client);
-
+  const dpFetch = await (settings?.access_token ? adminGenericProxyFetch : proxyFetch)(client);
+  const isClientAvailable = (await client.setUserState('isClientAvailable', 'isClientAvailable')).isSuccess;
   const baseUrl = rawUrl ? rawUrl : `${BASE_URL}${url}`;
   const params = getQueryParams(queryParams);
-  const isUsingOAuth2 = (await client.getUserState(IS_USING_OAUTH2))[0].data;
+  const isUsingOAuth2 = isClientAvailable ? (await client.getUserState(IS_USING_OAUTH2))[0].data : !settings?.use_access_token;
   let token;
 
-  if (isUsingOAuth2) {
+  if (isUsingOAuth2 === true) {
     token =  placeholders.OAUTH2_TOKEN;
   } else {
     token = settings?.access_token || placeholders.ACCESS_TOKEN;
