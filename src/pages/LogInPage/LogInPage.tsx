@@ -19,7 +19,7 @@ function LogInPage() {
     const { asyncErrorHandler } = useAsyncError();
 
     useDeskproElements(({ deRegisterElement }) => {
-        deRegisterElement('home')
+        deRegisterElement('home');
     });
 
     useInitialisedDeskproAppClient(async client => {

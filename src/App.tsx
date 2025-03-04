@@ -25,7 +25,7 @@ import {
   LogInPage
 } from "./pages";
 import type { FC } from "react";
-import type { EventPayload, Settings } from "./types";
+import type { EventPayload, Settings } from './types';
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -78,8 +78,8 @@ const App: FC = () => {
     <>
       <Routes>
         <Route path="/admin/verify_settings" element={<VerifySettings/>} />
-        <Route path="/admin/callback" element={<AdminCallbackPage />} />
-        <Route path="/log_in" element={<LogInPage />} />
+        <Route path='/admin/callback' element={<AdminCallbackPage />} />
+        <Route path='/log_in' element={<LogInPage />} />
         <Route path="/link" element={<LinkPage/>} />
         <Route path="/home" element={<HomePage/>} />
         <Route path="/create" element={<CreateTaskPage/>} />
