@@ -10,7 +10,7 @@ import {
   useDeskproAppEvents,
   useDeskproLatestAppContext
 } from "@deskpro/app-sdk";
-import { useLogOut, useUnlinkTask } from "./hooks";
+import { useLogOut, useUnlinkTask } from './hooks';
 import { isNavigatePayload } from "./utils";
 import {
   HomePage,
