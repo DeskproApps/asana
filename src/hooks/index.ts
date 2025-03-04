@@ -7,3 +7,4 @@ export { useLinkedAutoComment } from "./useLinkedAutoComment";
 export { useLinkedTasks } from "./useLinkedTasks";
 export { useReplyBox, ReplyBoxProvider } from "./useReplyBox";
 export { useDeskproTag } from "./useDeskproTag";
+export { useLogOut } from './useLogOut';

@@ -124,6 +124,11 @@
         "url": "https://app.asana.com/api/1.0/.*",
         "methods": ["GET", "POST", "PUT"],
         "timeout": 20
+      },
+      {
+        "url": "https://app.asana.com/-/.*",
+        "methods": ["GET", "POST"],
+        "timeout": 20
       }
     ]
   }

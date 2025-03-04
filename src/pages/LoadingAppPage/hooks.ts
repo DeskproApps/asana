@@ -8,13 +8,13 @@ import {
 import { getEntityListService } from "../../services/deskpro";
 import { getCurrentUserService } from "../../services/asana";
 import { useAsyncError } from "../../hooks";
-import type { TicketContext } from "../../types";
+import type { Settings, TicketData } from '../../types';
 
 type UseCheckIsAuth = () => void;
 
 const useCheckIsAuth: UseCheckIsAuth = () => {
   const navigate = useNavigate();
-  const { context } = useDeskproLatestAppContext() as { context: TicketContext };
+  const { context } = useDeskproLatestAppContext<TicketData, Settings>();
   const { asyncErrorHandler } = useAsyncError();
 
   const ticketId = get(context, ["data", "ticket", "id"]);
@@ -27,7 +27,11 @@ const useCheckIsAuth: UseCheckIsAuth = () => {
     getCurrentUserService(client)
       .then(() => getEntityListService(client, ticketId))
       .then((entityIds) => navigate(size(entityIds) ? "/home" : "/link"))
-      .catch(asyncErrorHandler);
+      .catch(error => {
+        asyncErrorHandler(error);
+
+        navigate('/log_in');
+      });
   }, [navigate, ticketId]);
 };
 

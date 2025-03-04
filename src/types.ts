@@ -37,8 +37,8 @@ export type Request = <T>(
 
 /** Deskpro types */
 export type Settings = {
-  use_deskpro_saas?: string,
-  use_access_token?: string,
+  use_deskpro_saas?: boolean,
+  use_access_token?: boolean,
   access_token?: string,
   client_id?: string,
   add_comment_when_linking?: boolean,
@@ -59,6 +59,7 @@ export type NavigateToChangePage = { type: "changePage", path: To };
 export type EventPayload =
   | NavigateToChangePage
   | { type: "unlink", task: Task }
+  | { type: 'logOut' }
 ;
 
 export type EntityMetadata = {
