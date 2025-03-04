@@ -1,6 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 import { proxyFetch, adminGenericProxyFetch } from "@deskpro/app-sdk";
-import { BASE_URL, placeholders } from '../../constants';
+import { BASE_URL, IS_USING_OAUTH2, placeholders } from '../../constants';
 import { getQueryParams } from "../../utils";
 import { AsanaError } from "./AsanaError";
 import type { Request } from "../../types";
@@ -18,7 +18,7 @@ const baseRequest: Request = async (client, {
 
   const baseUrl = rawUrl ? rawUrl : `${BASE_URL}${url}`;
   const params = getQueryParams(queryParams);
-  const isUsingOAuth2 = settings?.use_access_token !== true;
+  const isUsingOAuth2 = (await client.getUserState(IS_USING_OAUTH2))[0].data;
   let token;
 
   if (isUsingOAuth2) {

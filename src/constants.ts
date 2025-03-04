@@ -64,3 +64,5 @@ export const placeholders = {
   ACCESS_TOKEN: "__access_token__",
   OAUTH2_TOKEN: `[user[${OAUTH2_ACCESS_TOKEN_PATH}]]`
 };
+
+export const IS_USING_OAUTH2 = 'isUsingOAuth2';

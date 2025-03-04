@@ -9,6 +9,7 @@ import { getEntityListService } from "../../services/deskpro";
 import { getCurrentUserService } from "../../services/asana";
 import { useAsyncError } from "../../hooks";
 import type { Settings, TicketData } from '../../types';
+import { IS_USING_OAUTH2 } from "../../constants";
 
 type UseCheckIsAuth = () => void;
 
@@ -23,6 +24,8 @@ const useCheckIsAuth: UseCheckIsAuth = () => {
     if (!ticketId) {
       return;
     }
+
+    client.setUserState(IS_USING_OAUTH2, context?.settings.use_access_token !== true);
 
     getCurrentUserService(client)
       .then(() => getEntityListService(client, ticketId))
