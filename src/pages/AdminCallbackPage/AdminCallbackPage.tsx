@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import styled from 'styled-components';
-import { CopyToClipboardInput, LoadingSpinner, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from '@deskpro/app-sdk';
-import { DeskproTheme, P1 } from '@deskpro/deskpro-ui';
 import { createSearchParams } from 'react-router-dom';
-import { Settings } from '../../types';
+import styled from 'styled-components';
+import { CopyToClipboardInput, LoadingSpinner, useInitialisedDeskproAppClient } from '@deskpro/app-sdk';
+import { DeskproTheme, P1 } from '@deskpro/deskpro-ui';
 
 const Description = styled(P1)`
     margin-top: 8px;
@@ -11,7 +10,6 @@ const Description = styled(P1)`
 `;
 
 function AdminCallbackPage() {
-    const { context } = useDeskproLatestAppContext<unknown, Settings>();
     const [callbackURL, setCallbackURL] = useState<string | null>(null);
 
     useInitialisedDeskproAppClient(client => {
@@ -20,7 +18,7 @@ function AdminCallbackPage() {
                 setCallbackURL(callbackUrl);
 
                 return `https://app.asana.com/-/oauth_authorize?${createSearchParams([
-                    ['client_id', context?.settings.client_id ?? ''],
+                    ['client_id', ''],
                     ['state', state],
                     ['response_type', 'code'],
                     ['redirect_uri', callbackUrl]
