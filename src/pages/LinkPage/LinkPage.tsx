@@ -20,13 +20,13 @@ import { searchTasks, getEntityMetadata } from "../../utils";
 import { useTasks } from "./hooks";
 import { LinkTasks } from "../../components";
 import type { FC, ChangeEvent } from "react";
-import type { TicketContext } from "../../types";
+import type { Settings } from '../../types';
 import type { Workspace, Project, Task } from "../../services/asana/types";
 
 const LinkPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
-  const { context } = useDeskproLatestAppContext() as { context: TicketContext };
+  const { context } = useDeskproLatestAppContext<unknown, Settings>();
   const { addLinkComment } = useLinkedAutoComment();
   const { setSelectionState } = useReplyBox();
   const { addDeskproTag } = useDeskproTag();
@@ -90,6 +90,8 @@ const LinkPage: FC = () => {
 
   useSetTitle("Link Tasks");
 
+  const isUsingOAuth2 = context?.settings.use_access_token !== true;
+
   useDeskproElements(({ registerElement, clearElements }) => {
     clearElements();
 
@@ -97,6 +99,17 @@ const LinkPage: FC = () => {
     registerElement("home", {
       type: "home_button",
       payload: { type: "changePage", path: "/home" },
+    });
+    isUsingOAuth2 && registerElement('menuButton', {
+      type: 'menu',
+      items: [
+        {
+          title: 'Log Out',
+          payload: {
+            type: 'logOut'
+          }
+        }
+      ]
     });
   });
 
