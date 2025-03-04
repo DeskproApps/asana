@@ -1,7 +1,7 @@
 import has from "lodash/has";
 import isEmpty from "lodash/isEmpty";
 import { proxyFetch, adminGenericProxyFetch } from "@deskpro/app-sdk";
-import { BASE_URL, logInTypes, OAUTH2_ACCESS_TOKEN_PATH, placeholders } from "../../constants";
+import { BASE_URL, logInTypes, placeholders } from "../../constants";
 import { getQueryParams } from "../../utils";
 import { AsanaError } from "./AsanaError";
 import type { Request } from "../../types";
