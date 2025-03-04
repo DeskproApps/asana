@@ -29,7 +29,7 @@ const VerifySettings: FC = () => {
   const errorMessage = useMemo(() => "Failed to connect to Asana, settings seem to be invalid", []);
 
   const onVerifySettings = useCallback(() => {
-    if (!client || !get(settings, ["access_token"])) {
+    if (!client || !settings.use_access_token || !settings.access_token) {
       return;
     }
 
