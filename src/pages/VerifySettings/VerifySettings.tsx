@@ -53,7 +53,7 @@ const VerifySettings: FC = () => {
         intent="secondary"
         onClick={onVerifySettings}
         loading={isLoading}
-        disabled={settings.use_access_token || isLoading}
+        disabled={settings.use_access_token || !(settings.access_token?.length) || isLoading}
       />
       {nbsp}
       {currentUser
