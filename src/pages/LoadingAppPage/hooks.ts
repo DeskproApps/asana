@@ -8,26 +8,35 @@ import {
 import { getEntityListService } from "../../services/deskpro";
 import { getCurrentUserService } from "../../services/asana";
 import { useAsyncError } from "../../hooks";
-import type { TicketContext } from "../../types";
+import type { Settings, TicketData } from '../../types';
+import { IS_USING_OAUTH2 } from "../../constants";
 
 type UseCheckIsAuth = () => void;
 
 const useCheckIsAuth: UseCheckIsAuth = () => {
   const navigate = useNavigate();
-  const { context } = useDeskproLatestAppContext() as { context: TicketContext };
+  const { context } = useDeskproLatestAppContext<TicketData, Settings>();
   const { asyncErrorHandler } = useAsyncError();
 
   const ticketId = get(context, ["data", "ticket", "id"]);
 
-  useInitialisedDeskproAppClient((client) => {
+  useInitialisedDeskproAppClient(async client => {
     if (!ticketId) {
       return;
     }
 
+    const isUsingOAuth2 = context?.settings.use_access_token !== true;
+
+    await client.setUserState(IS_USING_OAUTH2, isUsingOAuth2);
+
     getCurrentUserService(client)
       .then(() => getEntityListService(client, ticketId))
       .then((entityIds) => navigate(size(entityIds) ? "/home" : "/link"))
-      .catch(asyncErrorHandler);
+      .catch(error => {
+        asyncErrorHandler(error);
+
+        navigate('/log_in');
+      });
   }, [navigate, ticketId]);
 };
 

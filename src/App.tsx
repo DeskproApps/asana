@@ -8,8 +8,9 @@ import {
   useDeskproElements,
   useDeskproAppClient,
   useDeskproAppEvents,
+  useDeskproLatestAppContext
 } from "@deskpro/app-sdk";
-import { useUnlinkTask } from "./hooks";
+import { useLogOut, useUnlinkTask } from './hooks';
 import { isNavigatePayload } from "./utils";
 import {
   HomePage,
@@ -20,18 +21,23 @@ import {
   LoadingAppPage,
   CreateTaskPage,
   CreateTaskCommentPage,
+  AdminCallbackPage,
+  LogInPage
 } from "./pages";
 import type { FC } from "react";
-import type { EventPayload } from "./types";
+import type { EventPayload, Settings } from './types';
 
 const App: FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { client } = useDeskproAppClient();
   const { unlinkTask, isLoading: isLoadingUnlink } = useUnlinkTask();
+  const { context } = useDeskproLatestAppContext<unknown, Settings>();
+  const { logOut } = useLogOut();
 
   const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
   const isLoading = [isLoadingUnlink].some((isLoading) => isLoading);
+  const isUsingOAuth2 = context?.settings?.use_access_token !== true;
 
   useDeskproElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });
@@ -45,6 +51,11 @@ const App: FC = () => {
         }
       })
       .with("unlink", () => unlinkTask(get(payload, ["task"])))
+      .with('logOut', () => {
+        if (isUsingOAuth2) {
+          logOut();
+        };
+      })
       .run();
   }, 500);
 
@@ -67,6 +78,8 @@ const App: FC = () => {
     <>
       <Routes>
         <Route path="/admin/verify_settings" element={<VerifySettings/>} />
+        <Route path='/admin/callback' element={<AdminCallbackPage />} />
+        <Route path='/log_in' element={<LogInPage />} />
         <Route path="/link" element={<LinkPage/>} />
         <Route path="/home" element={<HomePage/>} />
         <Route path="/create" element={<CreateTaskPage/>} />

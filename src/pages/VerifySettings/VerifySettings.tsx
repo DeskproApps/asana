@@ -1,6 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
-import get from "lodash/get";
 import { P1, TSpan, Stack } from "@deskpro/deskpro-ui";
 import { useDeskproAppEvents, useDeskproAppClient } from "@deskpro/app-sdk";
 import { nbsp } from "../../constants";
@@ -29,7 +28,7 @@ const VerifySettings: FC = () => {
   const errorMessage = useMemo(() => "Failed to connect to Asana, settings seem to be invalid", []);
 
   const onVerifySettings = useCallback(() => {
-    if (!client || !get(settings, ["access_tokens"])) {
+    if (!client || !settings?.access_token) {
       return;
     }
 
@@ -54,7 +53,7 @@ const VerifySettings: FC = () => {
         intent="secondary"
         onClick={onVerifySettings}
         loading={isLoading}
-        disabled={!get(settings, ["access_tokens"]) || isLoading}
+        disabled={!settings.access_token?.length || isLoading}
       />
       {nbsp}
       {currentUser

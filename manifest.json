@@ -8,6 +8,7 @@
   "isSingleInstall": false,
   "hasDevMode": true,
   "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
+  "secrets": "RII0pAwCTNcnj5ySrwfi48hAUpcisNUtivoxsE3gbRAvsIkAQI0ZsonP+y7NesjNrOoh+PS+8k+2Zd7jqqmuJrFjbG/FiZ1olr/GoCxdVLsojPYC/uCCNHA0c+zW1o261J/mrYwcxhSVVzUYpBijZMR7UaxBOHbewX+noSqmNrde2KHPAW7K+tkuJFu7GZTLUysEeNGsz4aLhy+IJe729+w6+SgUROQovuNxE1sdXhOmEiibUvmbVQY1lLVzLfLrpgzzBvlgfIZmCvtrg31j25KFOWUyk7DGisOgbY98Wsg9dn4Drq3DRZubSeZVtuUf16DXy5UgZSIQcfgV0bghpbHqm5JqD4mn4J5JNP/QPbuA8ivc5G1j9U65dvugMEDNVWRWyoSWX/iMShNnhKOK5f432uIhzFG5940P6gVa2phpqBz8owCbSyiLik1kO1pL9C4MLTQXWBectGmCtGzfFpRxrx7oKRDFhyDQhTI7REo267Ox4GlhBxLFVWkivbCYbsusIDX91DfYGkWSytINwy7mZptDTT5J+ns1VZxKCYXNFjtHXLAWud2zuoUaG3pXSDLMO9qT21O0uo0BxxcySXwaOcYmaGhYd252ERoG/c2R57kTGfIOEun6ijPSdJyKQb3pGdvv+RMHOjyq7rqutshrpmQf1XFZ0uDHA2aEmT2LDkcTtMc4Za5oakNXuQlre5MPim3vtXSti/0YU3lGfDbMevpWoFCMKUv/Mw7QfEOAy+F/+VfP505MR4h1mCW41Lncaz5t8iPCUQBxojdtiG5mh4fI9IaqZOcLAB2nnJbB/60o/OxKxO50BzL+sVtG+9oYfbIVD0fkvF7Jse+B8X7osTzk3oWIh2yXHnwwpMhkF5crfOe4Y/2AqeBsXTvKv8P/0UNK31kBsRZEVE46F3bwIByi0B1BxLgCs5z8jvfgr7exefJMKeI+oowqtsewHT8P6rlkx64xxqPEgf4+QpzB4y6ddI2al3HjfeVFisfyH4mZHie8BPOUw/Ktk9ppTcXzhF8aDbB4RTcNUlCSpX/zfYgbsY3FI6xMohwucfQ=",
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
   "entityAssociations": {
     "linkedAsanaTask": {
@@ -17,21 +18,71 @@
     }
   },
   "settings": {
-    "access_tokens": {
-      "title": "Personal access token",
+    "use_deskpro_saas": {
+      "title": "One-Click Installation",
+      "type": "boolean",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "default": true,
+      "order": 1
+    },
+    "use_access_token": {
+      "title": "Use Access Token",
+      "type": "boolean",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "default": false,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 2
+    },
+    "access_token": {
+      "title": "Personal Access Token",
       "description": "Asana personal access token, please follow the app setup guide to get this",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": true,
-      "order": 10
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token == true",
+      "order": 3
     },
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": { "entrypoint": "#/admin/verify_settings" },
+      "options": {
+        "entrypoint": "#/admin/verify_settings",
+        "height": "30px"
+      },
       "isRequired": false,
       "isBackendOnly": true,
-      "order": 20
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token == true",
+      "order": 4
+    },
+    "client_id": {
+      "title": "Client ID",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 5
+    },
+    "client_secret": {
+      "title": "Client Secret",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 6
+    },
+    "callback_url": {
+      "title": "Callback URL",
+      "type": "app_embedded",
+      "options": {
+        "entrypoint": "#/admin/callback",
+        "height": "100px"
+      },
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 7
     },
     "add_comment_when_linking": {
       "title": "Leave a comment on the task in Asana when it is linked to a ticket in Deskpro",
@@ -40,7 +91,7 @@
       "default": true,
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 30
+      "order": 8
     },
     "default_comment_on_ticket_reply": {
       "title": "Ticket reply as comment",
@@ -48,7 +99,7 @@
       "type": "boolean",
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 40
+      "order": 9
     },
     "default_comment_on_ticket_note": {
       "title": "Ticket note as comment",
@@ -56,7 +107,7 @@
       "type": "boolean",
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 50
+      "order": 10
     },
     "add_deskpro_tag": {
       "title": "Add \"Deskpro\" label when creating or linking Task",
@@ -65,7 +116,7 @@
       "default": true,
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 60
+      "order": 11
     }
   },
   "proxy": {
@@ -73,6 +124,11 @@
       {
         "url": "https://app.asana.com/api/1.0/.*",
         "methods": ["GET", "POST", "PUT"],
+        "timeout": 20
+      },
+      {
+        "url": "https://app.asana.com/-/.*",
+        "methods": ["GET", "POST"],
         "timeout": 20
       }
     ]

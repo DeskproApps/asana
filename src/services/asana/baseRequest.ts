@@ -1,8 +1,6 @@
-import has from "lodash/has";
-import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import { proxyFetch, adminGenericProxyFetch } from "@deskpro/app-sdk";
-import { BASE_URL, placeholders } from "../../constants";
+import { BASE_URL, IS_USING_OAUTH2, placeholders } from '../../constants';
 import { getQueryParams } from "../../utils";
 import { AsanaError } from "./AsanaError";
 import type { Request } from "../../types";
@@ -16,17 +14,24 @@ const baseRequest: Request = async (client, {
   settings = {},
   headers: customHeaders,
 }) => {
-  const dpFetch = await (has(settings, ["access_tokens"]) ? adminGenericProxyFetch : proxyFetch)(client);
-
+  const dpFetch = await (settings?.access_token ? adminGenericProxyFetch : proxyFetch)(client);
+  const isClientAvailable = (await client.setUserState('isClientAvailable', 'isClientAvailable')).isSuccess;
   const baseUrl = rawUrl ? rawUrl : `${BASE_URL}${url}`;
   const params = getQueryParams(queryParams);
-  const accessTokens = get(settings, ["access_tokens"], placeholders.ACCESS_TOKEN);
+  const isUsingOAuth2 = isClientAvailable ? (await client.getUserState(IS_USING_OAUTH2))[0].data : !settings?.use_access_token;
+  let token;
+
+  if (isUsingOAuth2 === true) {
+    token =  placeholders.OAUTH2_TOKEN;
+  } else {
+    token = settings?.access_token || placeholders.ACCESS_TOKEN;
+  };
 
   const requestUrl = `${baseUrl}${params}`;
   const options: RequestInit = {
     method,
     headers: {
-      "Authorization": `Bearer ${accessTokens}`,
+      "Authorization": `Bearer ${token}`,
       ...customHeaders,
     },
   };

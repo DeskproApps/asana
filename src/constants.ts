@@ -15,10 +15,6 @@ export const ENTITY = "linkedAsanaTask";
 
 export const DEFAULT_ERROR = "There was an error!";
 
-export const placeholders = {
-  ACCESS_TOKEN: "__access_tokens__",
-};
-
 export const UNKNOWN_ERROR = "An error occurred";
 
 /** Asana */
@@ -57,3 +53,16 @@ export const TASK_STORY_FIELDS = [
 ];
 
 export const DESKPRO_TAG = { name: "Deskpro", color: "light-blue" };
+
+export const GLOBAL_CLIENT_ID = '1209580353957409';
+
+export const OAUTH2_ACCESS_TOKEN_PATH = 'oauth2/access_token';
+
+export const OAUTH2_REFRESH_TOKEN_PATH = 'oauth2/refresh_token';
+
+export const placeholders = {
+  ACCESS_TOKEN: "__access_token__",
+  OAUTH2_TOKEN: `[user[${OAUTH2_ACCESS_TOKEN_PATH}]]`
+};
+
+export const IS_USING_OAUTH2 = 'isUsingOAuth2';
