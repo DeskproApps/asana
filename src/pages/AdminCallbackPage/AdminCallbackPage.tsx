@@ -18,7 +18,7 @@ function AdminCallbackPage() {
                 setCallbackURL(callbackUrl);
 
                 return `https://app.asana.com/-/oauth_authorize?${createSearchParams([
-                    ['client_id', ''],
+                    ['client_id', 'clientID'],
                     ['state', state],
                     ['response_type', 'code'],
                     ['redirect_uri', callbackUrl]
