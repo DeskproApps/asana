@@ -37,7 +37,7 @@ const App: FC = () => {
 
   const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
   const isLoading = [isLoadingUnlink].some((isLoading) => isLoading);
-  const isUsingOAuth2 = context?.settings.use_access_token !== true;
+  const isUsingOAuth2 = context?.settings?.use_access_token !== true;
 
   useDeskproElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });
