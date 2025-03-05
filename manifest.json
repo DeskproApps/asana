@@ -2,7 +2,7 @@
   "name": "@deskpro-apps/asana",
   "title": "Asana",
   "description": "View your Asana tasks linked with Deskpro tickets to streamline communication with users.",
-  "version": "1.4.25",
+  "version": "1.4.26",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/asana",
   "scope": "agent",
   "isSingleInstall": false,
@@ -47,10 +47,7 @@
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": {
-        "entrypoint": "#/admin/verify_settings",
-        "height": "30px"
-      },
+      "options": { "entrypoint": "#/admin/verify_settings", "height": "30px" },
       "isRequired": false,
       "isBackendOnly": true,
       "condition": "settings.use_deskpro_saas != true && settings.use_access_token == true",
@@ -75,10 +72,7 @@
     "callback_url": {
       "title": "Callback URL",
       "type": "app_embedded",
-      "options": {
-        "entrypoint": "#/admin/callback",
-        "height": "100px"
-      },
+      "options": { "entrypoint": "#/admin/callback", "height": "100px" },
       "isRequired": false,
       "isBackendOnly": true,
       "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
