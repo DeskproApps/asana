@@ -54,7 +54,7 @@ export const TASK_STORY_FIELDS = [
 
 export const DESKPRO_TAG = { name: "Deskpro", color: "light-blue" };
 
-export const GLOBAL_CLIENT_ID = '1209558229243301';
+export const GLOBAL_CLIENT_ID = '1209580353957409';
 
 export const OAUTH2_ACCESS_TOKEN_PATH = 'oauth2/access_token';
 
