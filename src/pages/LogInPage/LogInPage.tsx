@@ -83,6 +83,7 @@ function LogInPage() {
             } catch (error) {
                 asyncErrorHandler(error instanceof Error ? error : new Error('error logging in with OAuth2'));
             } finally {
+                setIsPolling(false);
                 setIsLoading(false);
             };
         };
