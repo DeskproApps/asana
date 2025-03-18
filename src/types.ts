@@ -37,7 +37,7 @@ export type Request = <T>(
 
 /** Deskpro types */
 export type Settings = {
-  use_deskpro_saas?: boolean,
+  use_advanced_connect?: boolean,
   use_access_token?: boolean,
   access_token?: string,
   client_id?: string,
