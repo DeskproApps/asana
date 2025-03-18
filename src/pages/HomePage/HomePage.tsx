@@ -42,7 +42,7 @@ const HomePage: FC = () => {
           }
         }
       ]
-    })
+    });
   });
 
   if (isLoading) {
