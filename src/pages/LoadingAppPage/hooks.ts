@@ -25,9 +25,9 @@ const useCheckIsAuth: UseCheckIsAuth = () => {
       return;
     }
 
-    const isUsingOAuth2 = context?.settings.use_access_token !== true;
+    const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false;
 
-    await client.setUserState(IS_USING_OAUTH2, isUsingOAuth2);
+    await client.setUserState(IS_USING_OAUTH2, isUsingOAuth);
 
     getCurrentUserService(client)
       .then(() => getEntityListService(client, ticketId))

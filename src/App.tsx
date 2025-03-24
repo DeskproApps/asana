@@ -37,7 +37,7 @@ const App: FC = () => {
 
   const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
   const isLoading = [isLoadingUnlink].some((isLoading) => isLoading);
-  const isUsingOAuth2 = context?.settings?.use_access_token !== true;
+  const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false;
 
   useDeskproElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });
@@ -52,7 +52,7 @@ const App: FC = () => {
       })
       .with("unlink", () => unlinkTask(get(payload, ["task"])))
       .with('logOut', () => {
-        if (isUsingOAuth2) {
+        if (isUsingOAuth) {
           logOut();
         };
       })

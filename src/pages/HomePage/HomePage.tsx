@@ -23,7 +23,7 @@ const HomePage: FC = () => {
   useSetTitle("Asana");
   useSetBadgeCount(tasks);
 
-  const isUsingOAuth2 = context?.settings.use_access_token !== true;
+  const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false;
 
   useDeskproElements(({ registerElement, clearElements }) => {
     clearElements();
@@ -32,7 +32,7 @@ const HomePage: FC = () => {
       type: "plus_button",
       payload: { type: "changePage", path: "/link" },
     });
-    isUsingOAuth2 && registerElement('menuButton', {
+    isUsingOAuth && registerElement('menuButton', {
       type: 'menu',
       items: [
         {
@@ -43,7 +43,7 @@ const HomePage: FC = () => {
         }
       ]
     });
-  });
+  }, [isUsingOAuth]);
 
   if (isLoading) {
     return (
