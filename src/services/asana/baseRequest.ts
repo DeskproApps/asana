@@ -18,14 +18,11 @@ const baseRequest: Request = async (client, {
   const isClientAvailable = (await client.setUserState('isClientAvailable', 'isClientAvailable')).isSuccess;
   const baseUrl = rawUrl ? rawUrl : `${BASE_URL}${url}`;
   const params = getQueryParams(queryParams);
-  const isUsingOAuth2 = isClientAvailable ? (await client.getUserState(IS_USING_OAUTH2))[0].data : !settings?.use_access_token;
-  let token;
+  const isUsingOAuth2 = isClientAvailable
+    ? (await client.getUserState(IS_USING_OAUTH2))[0].data
+    : settings?.use_access_token === false || settings?.use_advanced_connect === false;
 
-  if (isUsingOAuth2 === true) {
-    token =  placeholders.OAUTH2_TOKEN;
-  } else {
-    token = settings?.access_token || placeholders.ACCESS_TOKEN;
-  };
+  const token = isUsingOAuth2 ? placeholders.OAUTH2_TOKEN : (settings?.access_token || placeholders.ACCESS_TOKEN);
 
   const requestUrl = `${baseUrl}${params}`;
   const options: RequestInit = {

@@ -90,7 +90,7 @@ const LinkPage: FC = () => {
 
   useSetTitle("Link Tasks");
 
-  const isUsingOAuth2 = context?.settings.use_access_token !== true;
+  const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false;
 
   useDeskproElements(({ registerElement, clearElements }) => {
     clearElements();
@@ -100,7 +100,7 @@ const LinkPage: FC = () => {
       type: "home_button",
       payload: { type: "changePage", path: "/home" },
     });
-    isUsingOAuth2 && registerElement('menuButton', {
+    isUsingOAuth && registerElement('menuButton', {
       type: 'menu',
       items: [
         {
@@ -111,7 +111,7 @@ const LinkPage: FC = () => {
         }
       ]
     });
-  });
+  }, [isUsingOAuth]);
 
   // At the beginning, we choose the first workspace
   useEffect(() => {

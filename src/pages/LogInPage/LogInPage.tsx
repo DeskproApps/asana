@@ -29,7 +29,8 @@ function LogInPage() {
             return;
         };
 
-        if (context.settings.use_access_token === true) {
+        const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false;
+        if (!isUsingOAuth) {
             return;
         };
 
