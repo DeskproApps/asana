@@ -1,33 +1,34 @@
-<div align="center">
-  <a target="_blank" href=""><img src="https://img.shields.io/github/contributors/deskproapps/asana.svg?style=for-the-badge" alt="Contributors" /></a>
-  <a target="_blank" href="https://github.com/deskproapps/asana/issues"><img src="https://img.shields.io/github/issues/deskproapps/asana.svg?style=for-the-badge" alt="Issues" /></a>
-  <a target="_blank" href="https://github.com/deskproapps/asana/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/deskproapps/asana.svg?style=for-the-badge" alt="MIT License" /></a>
-  <a target="_blank" href="https://github.com/deskproapps/asana/releases"><img src="https://img.shields.io/github/v/release/deskproapps/asana?style=for-the-badge" alt="GitHub Release" /></a>
-  <a target="_blank" href="https://www.linkedin.com/company/deskpro"><img src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555" alt="LinkedIn" /></a>
+<div align='center'>
+  <a target='_blank' href=''><img src='https://img.shields.io/github/contributors/deskproapps/asana.svg?style=for-the-badge' alt='Contributors' /></a>
+  <a target='_blank' href='https://github.com/deskproapps/asana/issues'><img src='https://img.shields.io/github/issues/deskproapps/asana.svg?style=for-the-badge' alt='Issues' /></a>
+  <a target='_blank' href='https://github.com/deskproapps/asana/blob/master/LICENSE.md'><img src='https://img.shields.io/github/license/deskproapps/asana.svg?style=for-the-badge' alt='MIT License' /></a>
+  <a target='_blank' href='https://github.com/deskproapps/asana/releases'><img src='https://img.shields.io/github/v/release/deskproapps/asana?style=for-the-badge' alt='GitHub Release' /></a>
+  <a target='_blank' href='https://www.linkedin.com/company/deskpro'><img src='https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555' alt='LinkedIn' /></a>
 
-  <img src="readme.svg">
+  <img src='readme.svg'>
 </div>
 
-<div align="center">
-  <h1>YouTrack App</h1>
-  <p>View your YouTrack issues linked with Deskpro tickets to streamline communication with users.</p>
-  <a href="https://support.deskpro.com/ga/guides/developers/anatomy-of-an-app" target="_blank">Deskpro Apps Documentation</a>
+<div align='center'>
+  <h1>Asana App</h1>
+  <p>View your Asana tasks linked with Deskpro tickets to streamline communication with users.
+</p>
+  <a href='https://support.deskpro.com/ga/guides/developers/anatomy-of-an-app' target='_blank'>Deskpro Apps Documentation</a>
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="https://www.jetbrains.com/help/youtrack/devportal/youtrack-rest-api.html" target="_blank">YouTrack API Documentation</a>
+  <a href='https://developers.asana.com/reference/rest-api-reference' target='_blank'>Asana API Documentation</a>
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="./SETUP.md" target="_blank">YouTrack App Setup Guide</a>
+  <a href='./SETUP.md' target='_blank'>Asana App Setup Guide</a>
   <br />
   <hr />
   <br />
 </div>
 
-![Screenshot of the YouTrack App](./docs/readme/app-screenshot.png)
+![Screenshot of the Asana App](./docs/readme/app-screenshot.png)
 
 ## **About the app**
-YouTrack lets you track project progress in an agile workflow environment. With Deskpro's YouTrack integration, you can ensure Agents are aware of your development and projects with visibility of issues.
+Asana helps teams orchestrate their work, from daily tasks to strategic initiatives. With Deskpro's Asana integration, you can ensure Agents stay informed about your projects by providing visibility into tasks and workflows.
 
 ## **Setting up the app in Deskpro**
-You can follow our [setup guide](./SETUP.md) for a step-by-step guide to setting up the YouTrack app in Deskpro.
+You can follow our [setup guide](./SETUP.md) for a step-by-step guide to setting up the Asana app in Deskpro.
 
 ## Development
 
@@ -53,17 +54,17 @@ You should now be able to view the app in your browser. For more information abo
 ### Natively
 _We recommend using the DevContainer mentioned above for Consistency, Speed and Isolation._
 
-This app was developed primarily using **Typescript**, **React**, and **Vite**.
+This app was developed primarily using **TypeScript**, **React**, and **Vite**.
 
 #### Setup
 To run this project locally:
 
  ```bash
 # Clone the repository
-git clone https://github.com/DeskproApps/youtrack.git
+git clone https://github.com/DeskproApps/asana.git
 
 # Change to the project directory
-cd youtrack
+cd asana
 
 # Install dependencies
 pnpm install
@@ -86,12 +87,12 @@ pnpm test
 ## Versioning
 Every app deployment requires that the version property in the `manifest.json` file be updated to reflect the new app version. This is so Deskpro can detect changes and add/upgrade apps accordingly. As such, we've made altering versions easy by having CI make the actual version change for you. Here's what we do:
 
-* We increment patch versions, i.e. 1.0.1, automatically. You don't need to do anything and this will happen
-* Minor versions, i.e. 1.1.0, are incremented if you add the minor-version GitHub label to your PR
-* Major versions, i.e. 2.0.0, are incremented if you add the major-version GitHub label to your PR
+* We increment **patch** versions, i.e. 1.0.1, automatically. This is the default.
+* **Minor** versions, i.e. 1.1.0, are incremented if you add the `minor-version` GitHub label to your PR
+* **Major** versions, i.e. 2.0.0, are incremented if you add the `major-version` GitHub label to your PR
 
-## Top contributors
-[![Contributors](https://contrib.rocks/image?repo=deskproapps/youtrack)](https://github.com/deskproapps/youtrack/graphs/contributors)
+## Top Contributors
+[![Contributors](https://contrib.rocks/image?repo=deskproapps/asana)](https://github.com/deskproapps/asana/graphs/contributors)
 
 
 ## License
