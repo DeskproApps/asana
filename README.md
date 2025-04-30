@@ -69,7 +69,7 @@ cd asana
 # Install dependencies
 pnpm install
 
-# Run the development server.
+# Run the development server
 pnpm start
 ```
 
