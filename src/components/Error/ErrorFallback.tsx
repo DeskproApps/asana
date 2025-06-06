@@ -4,14 +4,9 @@ import { AsanaError } from "../../services/asana";
 import { DEFAULT_ERROR } from "../../constants";
 import { ErrorBlock } from "./ErrorBlock";
 import { Container } from "../common";
-import type { FC } from "react";
-import type { FallbackProps } from "react-error-boundary";
+import { FallbackRender } from "@sentry/react";
 
-type Props = Omit<FallbackProps, "error"> & {
-    error: Error,
-};
-
-const ErrorFallback: FC<Props> = ({ error }) => {
+const ErrorFallback: FallbackRender = ({ error }) => {
   let message = DEFAULT_ERROR;
   let consoleMessage;
 
