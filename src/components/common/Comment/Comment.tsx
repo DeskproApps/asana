@@ -6,8 +6,9 @@ import { Avatar, TSpan, P11, Stack } from "@deskpro/deskpro-ui";
 import { DPNormalize } from "../Typography";
 import type { AnyIcon } from "@deskpro/deskpro-ui";
 import type { FC } from "react";
+import type { DeskproAppTheme } from "@deskpro/app-sdk";
 
-const TimeAgo = styled(ReactTimeAgo)`
+const TimeAgo = styled(ReactTimeAgo)<DeskproAppTheme>`
   color: ${({theme}) => theme.colors.grey80};
 `;
 
