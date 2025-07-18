@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import styled from "styled-components";
 import { P1, TSpan, Stack } from "@deskpro/deskpro-ui";
-import { useDeskproAppEvents, useDeskproAppClient } from "@deskpro/app-sdk";
+import { useDeskproAppEvents, useDeskproAppClient, DeskproAppTheme } from "@deskpro/app-sdk";
 import { nbsp } from "../../constants";
 import { getCurrentUserService } from "../../services/asana";
 import { Button } from "../../components/common";
@@ -9,11 +9,11 @@ import type { FC } from "react";
 import type { Settings } from "../../types";
 import type { Member } from "../../services/asana/types";
 
-const Invalid = styled(TSpan)`
+const Invalid = styled(TSpan)<DeskproAppTheme>`
   color: ${({ theme }) => theme.colors.red100};
 `;
 
-const Valid = styled.span`
+const Valid = styled.span<DeskproAppTheme>`
   color: ${({ theme }) => theme.colors.grey100};
 `;
 
