@@ -1,7 +1,8 @@
-import { cleanup, waitFor } from "@testing-library/react";
+import { cleanup, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { render } from "../../../../testing";
 import { TaskCommentForm } from "../TaskCommentForm";
+
 
 describe("LinkTasks", () => {
   afterEach(() => {
@@ -14,13 +15,12 @@ describe("LinkTasks", () => {
       <TaskCommentForm onSubmit={jest.fn()} />
     ), { wrappers: { theme: true } });
 
-    waitFor(async () => {
-      expect(await findByText("New comment")).toBeInTheDocument();
-      expect(await findByText("Attachments")).toBeInTheDocument();
+    expect(await findByText("New comment")).toBeInTheDocument();
+    expect(await findByText("Attachments")).toBeInTheDocument();
 
-      expect(await findByText("Create")).toBeVisible();
-      expect(await findByText("Cancel")).toBeVisible();
-    });
+    const submitButton = screen.getByTestId("submit-button");
+    expect(submitButton).toBeVisible();
+    expect(await findByText("Cancel")).toBeVisible();
   });
 
   test("should should navigate to task details", async () => {
