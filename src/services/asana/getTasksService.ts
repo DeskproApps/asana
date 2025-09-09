@@ -24,22 +24,37 @@ export async function getTasksService(client: IDeskproClient, projectId: Project
 
   const visitedUrls = new Set<string>()
   let pageCount = 0
+  let isFirstPage = true
+
   while (nextPageUrl && pageCount < maxPages) {
 
     if (visitedUrls.has(nextPageUrl)) {
-      break;
+      break
     }
 
-    visitedUrls.add(nextPageUrl);
+    visitedUrls.add(nextPageUrl)
 
-    const tasksResponse: { data: Task[], next_page?: null | NextPage } = await baseRequest<Task[]>(client, {
-      rawUrl: nextPageUrl
-    })
+    try {
+      const tasksResponse: { data: Task[], next_page?: null | NextPage } = await baseRequest<Task[]>(client, {
+        rawUrl: nextPageUrl
+      })
 
-    allTasks.push(...tasksResponse.data ?? []);
-    nextPageUrl = tasksResponse.next_page?.uri ?? null;
+      allTasks.push(...tasksResponse.data ?? [])
+      nextPageUrl = tasksResponse.next_page?.uri ?? null
+      pageCount++
 
-    pageCount++;
+      if (isFirstPage) {
+        isFirstPage = false
+      }
+    } catch (error) {
+      if (isFirstPage) {
+        throw new Error(`Failed to fetch tasks: ${error instanceof Error ? error.message : "Unknown error"}`);
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn(`Failed to fetch all pages. Returning partial data: ${error instanceof Error ? error.message : "Unknown error"}`)
+        break
+      }
+    }
   }
 
   return { data: allTasks }

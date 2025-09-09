@@ -141,6 +141,45 @@ describe('getTasksService', () => {
 
     expect(mockedBaseRequest).toHaveBeenCalledTimes(1)
     expect(result).toEqual({ data: [...taskPage1] })
-  });
+  })
 
+  it('should handle multiple successful pages followed by a failure', async () => {
+    const taskPage1: Task[] = [{ gid: '1', name: 'Task 1' } as Task]
+    const taskPage2: Task[] = [{ gid: '2', name: 'Task 2' } as Task]
+    const error = new Error('Manual Error')
+
+    const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation()
+
+    mockedBaseRequest.mockReset()
+
+    mockedBaseRequest
+      .mockResolvedValueOnce({
+        data: taskPage1,
+        next_page: { uri: 'https://draft.com/next-page-2' } as NextPage,
+      })
+      .mockResolvedValueOnce({
+        data: taskPage2,
+        next_page: { uri: 'https://draft.com/next-page-3' } as NextPage,
+      })
+      .mockRejectedValueOnce(error)
+
+    const result = await getTasksService(mockClient, projectId)
+
+    expect(mockedBaseRequest).toHaveBeenCalledTimes(3)
+    expect(result).toEqual({ data: [...taskPage1, ...taskPage2] })
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      'Failed to fetch all pages. Returning partial data: Manual Error'
+    )
+
+    consoleWarnSpy.mockRestore();
+  })
+
+  it('should handle first page failures', async () => {
+    const error = new Error('Manual Error')
+
+    mockedBaseRequest.mockRejectedValueOnce(error)
+
+    await expect(getTasksService(mockClient, projectId)).rejects.toThrow('Failed to fetch tasks: Manual Error')
+    expect(mockedBaseRequest).toHaveBeenCalledTimes(1)
+  })
 })
