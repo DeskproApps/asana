@@ -26,14 +26,19 @@ export type RequestParams = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any,
   headers?: Dict<string>,
-  queryParams?: string|Dict<string>|ParamKeyValuePair[],
+  queryParams?: string | Dict<string> | ParamKeyValuePair[],
   settings?: Maybe<Settings>,
 };
 
+export type NextPage = {
+  offset: string,
+  path: string,
+  uri: string
+}
 export type Request = <T>(
   client: IDeskproClient,
   params: RequestParams,
-) => Promise<{ data: T }>;
+) => Promise<{ data: T, next_page?: null | NextPage }>;
 
 /** Deskpro types */
 export type Settings = {
@@ -60,7 +65,7 @@ export type EventPayload =
   | NavigateToChangePage
   | { type: "unlink", task: Task }
   | { type: 'logOut' }
-;
+  ;
 
 export type EntityMetadata = {
   id: Task["gid"],

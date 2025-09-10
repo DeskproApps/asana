@@ -52,6 +52,7 @@ const TaskCommentForm: FC<Props> = ({ error, onSubmit, onCancel }) => {
       <Stack justify="space-between">
         <Button
           type="submit"
+          data-testid="submit-button"
           text="Add"
           disabled={isSubmitting || !isValid}
           loading={isSubmitting}
