@@ -122,7 +122,7 @@
         "timeout": 20,
         "settingsInjection": {
           "access_token": {
-            "headers": ["Authorization"]
+            "header": ["Authorization"]
           }
         }
       },
